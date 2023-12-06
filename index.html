@@ -11,7 +11,7 @@
 
 <body>
 <form id="MainForm" class="w-25 m-4">
-    <h2 class="mb-3">Login User</h2>
+    <h2 class="mb-3">Register User</h2>
     <div class="form-floating mb-3">
         <input type="email" class="form-control" id="emailInp" placeholder="name@example.com">
         <label for="emailInput">Email address</label>
@@ -19,11 +19,16 @@
       <div class="form-floating mb-3">
         <input type="password" class="form-control" id="passwordInp" placeholder="Password">
         <label for="passwordInput">Password</label>
-        </div>
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="fnameInp" placeholder="Password">
+        <label for="passwordInput">First Name</label>
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="lnameInp" placeholder="Password">
+        <label for="passwordInput">Last Name</label>
+      </div>
 
-<label id="forgotpasslabel" style="cursor: pointer; margin-top: 8px; margin-left: 2px;">Forgot Password</label>
-        <button type="button" class="btn btn-primary" style="float: right;" id="loginButton"> Login</button>
-      <a href="index.html"><button type="button" class="btn btn-primary me-2" style="float: right;">Sign Up</button></a>
+      <button type="submit" class="btn btn-primary" style="float: right;"> Create New User</button>
+      <a href="login.html"><button type="button" class="btn btn-primary me-2" style="float: right;">Sign In</button></a>
 
 </form>
 
@@ -35,8 +40,8 @@
 
         <script type="module">
             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-            import { getDatabase, get, ref, child} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-            import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+            import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+            import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
             const firebaseConfig = {
     apiKey: "AIzaSyAHcabQDigUfzFQ63dy_kjiaqAPZB4edtI",
@@ -51,28 +56,22 @@
             const app = initializeApp(firebaseConfig);
             const db = getDatabase();
             const auth = getAuth(app);
-            const dbref = ref(db);
 
 
             let EmailInp = document.getElementById('emailInp')
             let PassInp = document.getElementById('passwordInp')
+            let FnameInp = document.getElementById('fnameInp')
+            let LnameInp = document.getElementById('lnameInp')
             let MainForm = document.getElementById('MainForm')
-            let ForgotPasswordLabel = document.getElementById('forgotpasslabel')
 
-            let SignInUser = evt => {
+            let RegisterUser = evt => {
                 evt.preventDefault();
 
-                signInWithEmailAndPassword(auth, EmailInp.value, PassInp.value)
+                createUserWithEmailAndPassword(auth, EmailInp.value, PassInp.value)
                 .then((credentials)=>{
-                    get(child(dbref, 'UsersAuthList/' + credentials.user.uid)).then((snapshot)=>{
-                        if(snapshot.exists){
-                            sessionStorage.setItem("user-info", JSON.stringify({
-                               firstname: snapshot.val().firstname,
-                               lastname: snapshot.val().lastname 
-                            }))
-                            sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
-                            window.location.href = "home.html";
-                        }
+                    set(ref(db, 'UsersAuthList/' + credentials.user.uid), {
+                        firstname: FnameInp.value,
+                        lastname: LnameInp.value
                     })
                 })
                 .catch((error)=>{
@@ -82,22 +81,7 @@
                 })
             }
 
-            let ForgotPassword = () =>{
-                sendPasswordResetEmail(auth, EmailInp.value)
-                .then(()=>{
-                    alert("A Password Reset Link has been sent to your email");
-                })
-                .catch((error)=>{
-                    console.log(error.code);
-                    console.log(error.message);
-                })
-            }
-
-            let LoginButton = document.getElementById('loginButton');
-            LoginButton.addEventListener('click', SignInUser);
-
-            MainForm.addEventListener('submit', SignInUser);
-            ForgotPasswordLabel.addEventListener('click', ForgotPassword)
+            MainForm.addEventListener('submit', RegisterUser);
           </script>
 </body>
 
