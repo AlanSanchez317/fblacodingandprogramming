@@ -1,0 +1,86 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.custom-form-container {
+    display: flex;
+    align-items: center;
+}
+
+.custom-form {
+    width: 60%;
+    padding: 40px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-heading {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.custom-form-group {
+    position: relative;
+}
+
+.custom-input {
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+    padding: 20px 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+
+.custom-label {
+    text-align: left;
+    padding-bottom: 2px;
+    pointer-events: none;
+    color: #555;
+    transition: 0.3s;
+}
+
+.custom-forgot-password {
+    cursor: pointer;
+    margin-top: 12px;
+    margin-left: 2px;
+    text-align: left;
+    color: #007bff;
+}
+
+.custom-button {
+    margin-top: 30px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.custom-sign-up-button {
+    margin-top: 30px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.custom-image {
+    margin-right: 20px;
+}

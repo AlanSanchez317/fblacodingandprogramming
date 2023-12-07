@@ -15,9 +15,9 @@ body {
 .vertical-navbar {
     display: flex;
     flex-direction: column;
-    width: 21.5px; 
+    width: 65px; 
     height: 100vh;
-    background-color: #f8f9fa;
+    background-color: #e6e6e6;
     transition: width 0.3s ease-in-out;
     position: fixed;
     top: 0;
@@ -29,7 +29,7 @@ body {
 }
 
 .vertical-navbar a {
-    padding: 10px;
+    padding: 30px 15px 30px 13px;
     text-decoration: none;
     color: #000;
     overflow: hidden;
@@ -48,7 +48,7 @@ body {
     justify-content: flex-end;
     align-items: center; 
     padding: 10px;
-    background-color: #f8f9fa;
+    background-color: #f1f1f1;
     width: 100%;
     position: sticky;
     top: 0;
@@ -64,4 +64,18 @@ body {
     margin-top: 20px;
     flex: 1;
     margin-left: 30px; 
+}
+
+.vert-nav-images{
+    width: 40px;
+    height: 40px;
+    margin-right: 7px;
+}
+
+.current-select{
+    color: blue;
+}
+
+a:hover{
+    color: blueviolet;
 }
