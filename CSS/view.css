@@ -1,0 +1,58 @@
+.custom-content {
+    margin-left: 100px;
+    margin-right: 10px;
+}
+
+.data-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: auto; /* Add scroll if content overflows */
+}
+
+.data-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+    gap: 10px; /* Adjust the gap between columns */
+    padding: 10px; 
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.data-label,
+.data-value {
+    flex: 1;
+}
+
+.data-label {
+    font-weight: bold;
+    margin-bottom: 5px; /* Add margin between label and value */
+}
+
+/* Remove border-bottom for the last data item */
+.data-item:last-child {
+    border-bottom: none;
+}
+
+.data-item table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-item th, .data-item td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+.data-item th {
+    background-color: #f2f2f2;
+}
+
+.data-item td {
+    background-color: #fff;
+}
