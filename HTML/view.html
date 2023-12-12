@@ -9,6 +9,8 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
         crossorigin="anonymous">
       <link rel="stylesheet" href="../CSS/home.css">
+      <link rel="icon" type="image/x-icon" href="../IMAGES/favicon.ico">
+
 </head>
 
 <body>
@@ -42,8 +44,212 @@
     </div>
 
   <div class="content">
+    <table>
+        <thead>
+            <th>First Name:</th>
+            <th>Last Name:</th>
+            <th>Email:</th>
+            <th>Phone Number:</th>
+            <th>Organization Name:</th>
+            <th>Street Address:</th>
+            <th>City:</th>
+            <th>State:</th>
+            <th>Resources:</th>
+            <th>Additional:</th>
+        </thead>
+        <tbody id="tbody1">
+
+        </tbody>
+
+    </table>
+
+
+<!-- <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+
+
   </div>
 
+    <script id="MainScript" type="module">
+        
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAHcabQDigUfzFQ63dy_kjiaqAPZB4edtI",
+    authDomain: "codinganddevelopment-e7d2c.firebaseapp.com",
+    databaseURL: "https://codinganddevelopment-e7d2c-default-rtdb.firebaseio.com",
+    projectId: "codinganddevelopment-e7d2c",
+    storageBucket: "codinganddevelopment-e7d2c.appspot.com",
+    messagingSenderId: "991250122571",
+    appId: "1:991250122571:web:25d3ea280f9b9c34db8ace"
+  };
+
+    const app = initializeApp(firebaseConfig);
+
+  function SelectAllData(){
+    firebase.database().ref('Information').once('value',
+    function(AllRecords){
+        AllRecords.forEach(
+            function(CurrentRecord){
+                var fname = CurrentRecord.val().Fname;
+                var lname = CurrentRecord.val().Lname;
+                var email = CurrentRecord.val().email;
+                var phone = CurrentRecord.val().number;
+                var orgname = CurrentRecord.val().organization;
+                var street = CurrentRecord.val().S_organization;
+                var city = CurrentRecord.val().C_organization;
+                var state = CurrentRecord.val().ST_organization;
+                var resources = CurrentRecord.val().resources;
+                var add = CurrentRecord.val().additional;
+                console.log(fname);
+                AddItemsToTable(fname, lname, email, phone, orgname, street, city, state, resources, add);
+            }
+        );
+    });
+  }
+
+  window.onload = SelectAllData;
+
+  function AddItemsToTable(fname, lname, email, phone, orgname, street, city, state, resources, add){
+    var tbody = document.getElementById('tbody1');
+    var trow = document.createElement('tr');
+    var td1 = document.createElement('td');
+    var td2 = document.createElement('td');
+    var td3 = document.createElement('td');
+    var td4 = document.createElement('td');
+    var td5 = document.createElement('td');
+    var td6 = document.createElement('td');
+    var td7 = document.createElement('td');
+    var td8 = document.createElement('td');
+    var td9 = document.createElement('td');
+    var td10 = document.createElement('td');
+    td1.innerHTML= fname;
+    td2.innerHTML= lname;
+    td3.innerHTML= email;
+    td4.innerHTML= phone;
+    td5.innerHTML= orgname;
+    td6.innerHTML= street;
+    td7.innerHTML= city;
+    td8.innerHTML= state;
+    td9.innerHTML= resources;
+    td10.innerHTML= add;
+    trow.appendChild(td1);
+    trow.appendChild(td2);
+    trow.appendChild(td3);
+    trow.appendChild(td4);
+    trow.appendChild(td5);
+    trow.appendChild(td6);
+    trow.appendChild(td7);
+    trow.appendChild(td8);
+    trow.appendChild(td9);
+    trow.appendChild(td10);
+    tbody.appendChild(trow);
+  }
+
+</script> -->
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAHcabQDigUfzFQ63dy_kjiaqAPZB4edtI",
+    authDomain: "codinganddevelopment-e7d2c.firebaseapp.com",
+    databaseURL: "https://codinganddevelopment-e7d2c-default-rtdb.firebaseio.com",
+    projectId: "codinganddevelopment-e7d2c",
+    storageBucket: "codinganddevelopment-e7d2c.appspot.com",
+    messagingSenderId: "991250122571",
+    appId: "1:991250122571:web:25d3ea280f9b9c34db8ace"
+  };
+
+  const app = initializeApp(firebaseConfig);
+
+  function SelectAllData() {
+    const db = getDatabase(app);
+    const dbRef = ref(db, 'Information');
+
+    get(dbRef).then((snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        const CurrentRecord = childSnapshot.val();
+        const {
+          Fname,
+          Lname,
+          email,
+          number,
+          organization,
+          S_organization,
+          C_organization,
+          ST_organization,
+          resources,
+          additional
+        } = CurrentRecord;
+
+        AddItemsToTable(
+          Fname,
+          Lname,
+          email,
+          number,
+          organization,
+          S_organization,
+          C_organization,
+          ST_organization,
+          resources,
+          additional
+        );
+      });
+    });
+  }
+
+  window.onload = SelectAllData;
+
+  function AddItemsToTable(
+    Fname,
+    Lname,
+    email,
+    number,
+    organization,
+    S_organization,
+    C_organization,
+    ST_organization,
+    resources,
+    additional
+  ) {
+    var tbody = document.getElementById('tbody1');
+    var trow = document.createElement('tr');
+    var td1 = document.createElement('td');
+    var td2 = document.createElement('td');
+    var td3 = document.createElement('td');
+    var td4 = document.createElement('td');
+    var td5 = document.createElement('td');
+    var td6 = document.createElement('td');
+    var td7 = document.createElement('td');
+    var td8 = document.createElement('td');
+    var td9 = document.createElement('td');
+    var td10 = document.createElement('td');
+    td1.innerHTML = Fname;
+    td2.innerHTML = Lname;
+    td3.innerHTML = email;
+    td4.innerHTML = number;
+    td5.innerHTML = organization;
+    td6.innerHTML = S_organization;
+    td7.innerHTML = C_organization;
+    td8.innerHTML = ST_organization;
+    td9.innerHTML = resources;
+    td10.innerHTML = additional;
+    trow.appendChild(td1);
+    trow.appendChild(td2);
+    trow.appendChild(td3);
+    trow.appendChild(td4);
+    trow.appendChild(td5);
+    trow.appendChild(td6);
+    trow.appendChild(td7);
+    trow.appendChild(td8);
+    trow.appendChild(td9);
+    trow.appendChild(td10);
+    tbody.appendChild(trow);
+  }
+</script>
 
 
 
