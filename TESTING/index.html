@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+        crossorigin="anonymous">
+      <link rel="stylesheet" href="./CSS/home.css">
+      <link rel="icon" type="image/x-icon" href="../IMAGES/favicon.ico">
+
+</head>
+
+<body>
+
+  <div class="navbar-container">
+      <div class="vertical-navbar">
+          <a href="./index.html"  style="color: blue;" title="Home">
+            <img src="./IMAGES/homeicon.png" class="vert-nav-images" alt="Home">
+            Home
+        </a>
+          <a href="./HTML/form.html" title="Submit">
+        <img src="./IMAGES/submiticon.png" class="vert-nav-images" alt="Submit">
+            Submit
+        </a>
+          <a href="./HTML/view.html" title="View">
+        <img src="./IMAGES/viewicon.png" class="vert-nav-images" alt="View">
+            View
+        </a>
+          <a href="./HTML/edit.html" title="Edit">
+            <img src="./IMAGES/editicon.png" class="vert-nav-images" alt="">
+            Edit</a>
+        <a href="./HTML/profile.html" title="Profile">
+            <img src="./IMAGES/defaultpfpicon.png" class="vert-nav-images" alt="Profile">
+            Profile</a>
+      </div>
+
+      <div class="horizontal-navbar">
+          <div id="greet"></div>
+          <button class="btn btn-outline-success" type="button" id="signoutbutton">Sign Out</button>
+      </div>
+  </div>
+
+  <div class="content">
+    <div class="coolimagearea">
+        <div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+            <img class="image" src="./IMAGES/TestImages/image1.jpg" draggable="false">
+            <img class="image" src="./IMAGES/TestImages/image2.jpg" draggable="false">
+            <img class="image" src="./IMAGES/TestImages/image3.jpg" draggable="false">
+            <img class="image" src="./IMAGES/TestImages/image4.jpg" draggable="false">
+            <img class="image" src="./IMAGES/TestImages/image5.jpg" draggable="false">
+            <img class="image" src="./IMAGES/TestImages/image6.jpg" draggable="false">
+            <img class="image" src="./IMAGES/TestImages/image7.jpg" draggable="false">
+            <img class="image" src="./IMAGES/TestImages/image8.jpg" draggable="false">
+        </div>
+    </div>
+  </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+    <script>
+        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
+        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
+
+        let GreetHead = document.getElementById('greet');
+        let SignoutBtn = document.getElementById('signoutbutton');
+
+
+        let Signout = () => {
+            sessionStorage.removeItem("user-creds");
+            sessionStorage.removeItem("user-info");
+            window.location.href = './HTML/login.html'
+        }
+
+        let CheckCred = () => {
+            if (!sessionStorage.getItem("user-creds")) {
+                window.location.href = './HTML/login.html';
+            } else {
+                GreetHead.innerText = `Welcome ${UserInfo.firstname} ${UserInfo.lastname}!`;
+            }
+        }
+
+        window.addEventListener('load', CheckCred);
+        SignoutBtn.addEventListener('click', Signout);
+    </script>
+
+<script>
+    // const track = document.getElementById("image-track");
+
+    // window.onmousedown = e => {
+    //     track.dataset.mouseDownAt = e.clientX;
+    // }
+
+    // window.onmouseup = () => {
+    //     track.dataset.mouseDownAt = "0";
+    //     track.dataset.prevPercentage = track.dataset.percentage;
+    // }
+
+    // window.onmousemove = e => {
+    //     if (track.dataset.mouseDownAt === "0") return;
+
+    //     const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
+    //         maxDelta = window.innerWidth / 2;
+
+    //     const percentage = (mouseDelta / maxDelta) * -100,
+    //         nextPercentage = parseFloat(track.dataset.prevPercentage) + percentage;
+        
+    //     const clampedPercentage = Math.min(0, Math.max(-100, nextPercentage));
+
+    //     track.dataset.percentage = clampedPercentage;
+
+    //     track.style.transform = `translate(${clampedPercentage}%, -50%)`;
+
+    //     for (const image of track.getElementsByClassName("image")) {
+    //         image.style.objectPosition = `${100 + clampedPercentage}% center`;
+    //     }
+    // }
+
+
+    const track = document.getElementById("image-track");
+
+let isMouseDown = false;
+let initialMouseX = 0;
+let initialPercentage = 0;
+
+window.addEventListener('mousedown', e => {
+    isMouseDown = true;
+    initialMouseX = e.clientX;
+    initialPercentage = parseFloat(track.dataset.percentage) || 0;
+    track.style.transition = 'none'; // Disable transition during mouse down
+});
+
+window.addEventListener('mouseup', () => {
+    isMouseDown = false;
+    track.style.transition = 'transform 0.3s ease-out'; // Enable smooth transition after mouse up
+});
+
+function updatePosition() {
+    if (isMouseDown) {
+        const mouseDelta = initialMouseX - event.clientX;
+        const maxDelta = window.innerWidth / 2;
+        const percentage = (mouseDelta / maxDelta) * -100;
+        const nextPercentage = initialPercentage + percentage;
+        const clampedPercentage = Math.min(0, Math.max(-100, nextPercentage));
+
+        track.dataset.percentage = clampedPercentage;
+        track.style.transform = `translate(${clampedPercentage}%, -50%)`;
+
+        for (const image of track.getElementsByClassName("image")) {
+            image.style.objectPosition = `${100 + clampedPercentage}% center`;
+        }
+    }
+
+    requestAnimationFrame(updatePosition);
+}
+
+window.addEventListener('mousemove', updatePosition); // Use mousemove event to trigger updatePosition
+
+updatePosition(); // Initial call to start animation loop
+
+</script>
+
+</body>
+
+</html>
