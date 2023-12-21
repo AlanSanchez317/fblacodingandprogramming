@@ -110,50 +110,43 @@
 
         // Function to populate the form with data from Firebase
         function loadFormData() {
-            if (!formId) {
-                console.error("No form ID provided.");
-                return;
+    const auth = getAuth();
+    const userId = auth.currentUser.uid; // Get the currently signed-in user's UID
+
+    if (!userId) {
+        console.error("User is not signed in.");
+        return;
+    }
+
+    const dataRef = ref(database, 'Information/' + userId);
+    get(dataRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            let data = snapshot.val();
+            // Verify that the data belongs to the current user
+            if (data.userId === userId) {
+                // Populate form fields
+                // ...
+            } else {
+                console.error("You do not have permission to edit this data.");
             }
-            const dataRef = ref(database, 'Information/' + formId);
-            get(dataRef).then((snapshot) => {
-                if (snapshot.exists()) {
-                    let data = snapshot.val();
-                    // Populate form fields
-                    document.getElementById('editFname').value = data.Fname;
-                    document.getElementById('editLname').value = data.Lname;
-                    document.getElementById('editEmail').value = data.email;
-                    document.getElementById('editNumber').value = data.number;
-                    document.getElementById('editN_organization').value = data.organization;
-                    document.getElementById('editS_organization').value = data.S_organization;
-                    document.getElementById('editC_organization').value = data.C_organization;
-                    document.getElementById('editST_organization').value = data.ST_organization;
-                    document.getElementById('editResources').value = data.resources;
-                    document.getElementById('editAdditional').value = data.additional;
-                } else {
-                    console.log("No data available");
-                }
-            }).catch((error) => {
-                console.error(error);
-            });
+        } else {
+            console.log("No data available");
         }
+    }).catch((error) => {
+        console.error(error);
+    });
+}
 
         // Function to update data in Firebase
-function updateFormData(e) {
+        function updateFormData(e) {
     e.preventDefault();
 
-    // Get values from form fields
-    let Fname = document.getElementById('editFname').value;
-    let Lname = document.getElementById('editLname').value;
-    let email = document.getElementById('editEmail').value;
-    let number = document.getElementById('editNumber').value;
-    let N_organization = document.getElementById('editN_organization').value;
-    let S_organization = document.getElementById('editS_organization').value;
-    let C_organization = document.getElementById('editC_organization').value;
-    let ST_organization = document.getElementById('editST_organization').value;
-    let resources = document.getElementById('editResources').value;
-    let additional = document.getElementById('editAdditional').value;
+    const auth = getAuth();
+    const userId = auth.currentUser.uid; // Get the currently signed-in user's UID
 
-    const updateRef = ref(database, 'Information/' + formId);
+    // [Get values from form fields]
+
+    const updateRef = ref(database, 'Information/' + userId);
     update(updateRef, {
         Fname: Fname,
         Lname: Lname,

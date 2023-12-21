@@ -62,3 +62,148 @@
     <!-- [Bootstrap and other scripts] -->
 </body>
 </html>
+----------------------------------------------------------------
+//Send Message to Firebase(4)
+function sendMessage(Fname, Lname, email, number, N_organization, S_organization, C_organization, ST_organization, resources, additional) {
+    const database = getDatabase();
+    const auth = getAuth();
+
+    // Get the currently signed-in user's UID
+    const userId = auth.currentUser.uid;
+
+    set(ref(database, 'Information/' + userId), {
+        Fname: Fname,
+        Lname: Lname,
+        email: email,
+        number: number,
+        organization: N_organization,
+        S_organization: S_organization,
+        C_organization: C_organization,
+        ST_organization: ST_organization,
+        resources: resources,
+        additional: additional,
+        userId: userId  // Store user ID with form data
+    })
+    // [Rest of the function remains unchanged]
+}
+----------------------------------------------------------------
+// Function to populate the form with data from Firebase
+function loadFormData() {
+    const auth = getAuth();
+    const userId = auth.currentUser.uid; // Get the currently signed-in user's UID
+
+    if (!userId) {
+        console.error("User is not signed in.");
+        return;
+    }
+
+    const dataRef = ref(database, 'Information/' + userId);
+    get(dataRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            let data = snapshot.val();
+            // Verify that the data belongs to the current user
+            if (data.userId === userId) {
+                // Populate form fields
+                // ...
+            } else {
+                console.error("You do not have permission to edit this data.");
+            }
+        } else {
+            console.log("No data available");
+        }
+    }).catch((error) => {
+        console.error(error);
+    });
+}
+
+// [Rest of the code remains unchanged]
+----------------------------------------------------------------
+// Function to update data in Firebase
+function updateFormData(e) {
+    e.preventDefault();
+
+    const auth = getAuth();
+    const userId = auth.currentUser.uid; // Get the currently signed-in user's UID
+
+    // [Get values from form fields]
+
+    const updateRef = ref(database, 'Information/' + userId);
+    update(updateRef, {
+        // Updated data
+        // ...
+    })
+    // [Rest of the function remains unchanged]
+}
+----------------------------------------------------------------
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAHcabQDigUfzFQ63dy_kjiaqAPZB4edtI",
+    authDomain: "codinganddevelopment-e7d2c.firebaseapp.com",
+    databaseURL: "https://codinganddevelopment-e7d2c-default-rtdb.firebaseio.com",
+    projectId: "codinganddevelopment-e7d2c",
+    storageBucket: "codinganddevelopment-e7d2c.appspot.com",
+    messagingSenderId: "991250122571",
+    appId: "1:991250122571:web:25d3ea280f9b9c34db8ace"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+  const auth = getAuth(app);
+
+  document.getElementById('registrationform').addEventListener('submit', formSubmit);
+
+  function formSubmit(e) {
+    e.preventDefault();
+    // Get Values from the DOM
+    let Fname = document.querySelector('#Fname').value;
+    let Lname = document.querySelector('#Lname').value;
+    let email = document.querySelector('#email').value;
+    let number = document.querySelector('#number').value;
+    let organization = document.querySelector('#N_organization').value;
+    let S_organization = document.querySelector('#S_organization').value;
+    let C_organization = document.querySelector('#C_organization').value;
+    let ST_organization = document.querySelector('#ST_organization').value;
+    let resources = document.querySelector('#resources').value;
+    let additional = document.querySelector('#additional').value;
+
+    // Check if the user is authenticated
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        sendMessage(user.uid, Fname, Lname, email, number, organization, S_organization, C_organization, ST_organization, resources, additional);
+      } else {
+        alert("You need to be logged in to submit this form.");
+      }
+    });
+  }
+
+  function sendMessage(userId, Fname, Lname, email, number, N_organization, S_organization, C_organization, ST_organization, resources, additional) {
+    set(ref(database, 'Information/' + userId), {
+      Fname: Fname,
+      Lname: Lname,
+      email: email,
+      number: number,
+      organization: N_organization,
+      S_organization: S_organization,
+      C_organization: C_organization,
+      ST_organization: ST_organization,
+      resources: resources,
+      additional: additional,
+      userId: userId
+    }).then(() => {
+      document.querySelector('.alert').style.display = 'block';
+      setTimeout(function () {
+        document.querySelector('.alert').style.display = 'none';
+      }, 7000);
+      document.getElementById('registrationform').reset();
+    }).catch((error) => {
+      alert(error.message);
+    });
+  }
+
+  // Additional script elements...
+</script>
