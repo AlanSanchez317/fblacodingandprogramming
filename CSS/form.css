@@ -8,7 +8,7 @@
     margin: 35px auto;
     border-radius: 10px;
     padding: 10px 15px;
-    background: rgb(241, 241, 241);
+    background: rgb(151, 129, 0);
   }
   
   h1 {
@@ -20,11 +20,19 @@
   .alert {
     text-align: center;
     padding: 10px;
-    background: rgb(168, 240, 177);
     color: green;
     margin-bottom: 10px;
     display: none;
-  }
+}
+
+.alert.alert-success {
+    background: rgb(168, 240, 177);
+}
+
+.alert.alert-error {
+    background: rgb(240, 173, 173);
+    color: red;
+}
   
   input[type='text'],
   input[type='email'],
