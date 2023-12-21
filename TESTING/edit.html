@@ -8,6 +8,7 @@
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
         crossorigin="anonymous">
       <link rel="stylesheet" href="../CSS/home.css">
+      <link rel="stylesheet" href="../CSS/form.css">
 </head>
 <body>
 
@@ -78,7 +79,7 @@
                 <textarea id="editAdditional" required></textarea>
             </fieldset>
 
-            <button type="submit">Update</button>
+            <button class="registerbutton type="submit">Update</button>
         </form>
     </div>
 
@@ -137,39 +138,41 @@
         }
 
         // Function to update data in Firebase
-        function updateFormData(e) {
-            e.preventDefault();
+function updateFormData(e) {
+    e.preventDefault();
 
-            // Get values from form fields
-            let Fname = document.getElementById('editFname').value;
-            let Lname = document.getElementById('editLname').value;
-            let email = document.getElementById('editEmail').value;
-            let number = document.getElementById('editNumber').value;
-            let N_organization = document.getElementById('editN_organization').value;
-            let S_organization = document.getElementById('editS_organization').value;
-            let C_organization = document.getElementById('editC_organization').value;
-            let ST_organization = document.getElementById('editST_organization').value;
-            let resources = document.getElementById('editResources').value;
-            let additional = document.getElementById('editAdditional').value;
+    // Get values from form fields
+    let Fname = document.getElementById('editFname').value;
+    let Lname = document.getElementById('editLname').value;
+    let email = document.getElementById('editEmail').value;
+    let number = document.getElementById('editNumber').value;
+    let N_organization = document.getElementById('editN_organization').value;
+    let S_organization = document.getElementById('editS_organization').value;
+    let C_organization = document.getElementById('editC_organization').value;
+    let ST_organization = document.getElementById('editST_organization').value;
+    let resources = document.getElementById('editResources').value;
+    let additional = document.getElementById('editAdditional').value;
 
-            const updateRef = ref(database, 'Information/' + formId);
-            update(updateRef, {
-                Fname: Fname,
-                Lname: Lname,
-                email: email,
-                number: number,
-                organization: N_organization,
-                S_organization: S_organization,
-                C_organization: C_organization,
-                ST_organization: ST_organization,
-                resources: resources,
-                additional: additional
-            }).then(() => {
-                alert("Data updated successfully");
-            }).catch((error) => {
-                console.error("Update failed: " + error.message);
-            });
-        }
+    const updateRef = ref(database, 'Information/' + formId);
+    update(updateRef, {
+        Fname: Fname,
+        Lname: Lname,
+        email: email,
+        number: number,
+        organization: N_organization,
+        S_organization: S_organization,
+        C_organization: C_organization,
+        ST_organization: ST_organization,
+        resources: resources,
+        additional: additional
+    }).then(() => {
+        alert("Data updated successfully");
+        // Optional: Redirect to another page or indicate success in another way
+    }).catch((error) => {
+        console.error("Update failed: " + error.message);
+    });
+}
+
 
         window.onload = function() {
             loadFormData();
