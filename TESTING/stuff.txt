@@ -283,3 +283,364 @@ function formSubmit(e) {
     <!-- [Existing Scripts for Bootstrap and Session Checks] -->
 </body>
 </html>
+----------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Existing head content -->
+</head>
+<body>
+
+    <!-- Existing body content -->
+
+    <div class="content">
+        <form id="profileForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Your username">
+
+            <label for="birthday">Birthday:</label>
+            <input type="date" id="birthday">
+
+            <label for="workplace">Workplace:</label>
+            <input type="text" id="workplace" placeholder="Your workplace">
+
+            <!-- Existing form content -->
+
+            <button type="submit">Save Profile</button>
+        </form>
+    
+        <div class="profile-display">
+            <!-- Existing display content -->
+            <p id="usernameDisplay"></p>
+            <p id="birthdayDisplay"></p>
+            <p id="workplaceDisplay"></p>
+        </div>
+    </div>
+    
+    <script type="module">
+        // Existing script content
+
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            // Existing event listener content
+
+            const username = document.getElementById('username').value;
+            const birthday = document.getElementById('birthday').value;
+            const workplace = document.getElementById('workplace').value;
+
+            set(ref(database, 'users/' + user.uid), {
+                username: username,
+                birthday: birthday,
+                workplace: workplace,
+                bio: bio,
+                info: info
+                // Existing set content
+            }).then(() => {
+                // Existing then content
+            }).catch((error) => {
+                // Existing catch content
+            });
+        });
+
+        function updateProfileDisplay(profilePicUrl, username, birthday, workplace, bio, info) {
+            // Update display logic
+            if (profilePicUrl) {
+                document.getElementById('profileImageDisplay').src = profilePicUrl;
+                document.querySelector('.navbar-container .profile-img').src = profilePicUrl;
+            }
+            document.getElementById('usernameDisplay').textContent = username;
+            document.getElementById('birthdayDisplay').textContent = birthday;
+            document.getElementById('workplaceDisplay').textContent = workplace;
+            document.getElementById('bioDisplay').textContent = bio;
+            document.getElementById('infoDisplay').textContent = info;
+        }
+
+        // Existing load event listener
+    </script>
+
+    <!-- Existing script tags -->
+</body>
+</html>
+--------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... existing head content ... -->
+</head>
+<body>
+    <!-- ... existing body content ... -->
+
+    <script type="module">
+        // ... existing script imports and firebaseConfig ...
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+        const storage = getStorage(app);
+
+        // ... existing event listener for form submission ...
+
+        function updateProfileDisplay(profilePicUrl, username, birthday, workplace, bio, info) {
+            // ... existing function to update the display ...
+        }
+
+        // Load existing profile data when the page loads
+        window.addEventListener('load', () => {
+            const user = auth.currentUser;
+            if (user) {
+                const userProfileRef = ref(database, 'users/' + user.uid);
+                get(userProfileRef).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        updateProfileDisplay(data.profilePicture, data.username, data.birthday, data.workplace, data.bio, data.info);
+                    } else {
+                        console.log("No user data available");
+                    }
+                }).catch((error) => {
+                    console.error("Error fetching user data: ", error);
+                });
+            }
+        });
+
+        // ... existing scripts for bootstrap and user session management ...
+    </script>
+</body>
+</html>
+---------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... [rest of the head] ... -->
+</head>
+<body>
+
+    <!-- ... [rest of the body] ... -->
+
+    <script type="module">
+        // ... [rest of the imports] ...
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+        const storage = getStorage(app);
+
+        // Function to update the profile display
+        function updateProfileDisplay(profilePicUrl, userData) {
+            const profileImageDisplay = document.getElementById('profileImageDisplay');
+            const navbarProfileImage = document.querySelector('.navbar-container .profile-img');
+            if (profilePicUrl) {
+                profileImageDisplay.src = profilePicUrl;
+                navbarProfileImage.src = profilePicUrl;
+            }
+            document.getElementById('usernameDisplay').textContent = userData.username || '';
+            document.getElementById('birthdayDisplay').textContent = userData.birthday || '';
+            document.getElementById('workplaceDisplay').textContent = userData.workplace || '';
+            document.getElementById('bioDisplay').textContent = userData.bio || '';
+            document.getElementById('infoDisplay').textContent = userData.info || '';
+        }
+
+        // Function to fetch and display profile data
+        function fetchAndDisplayProfile() {
+            const user = auth.currentUser;
+            if (user) {
+                const userProfileRef = ref(database, 'users/' + user.uid);
+                get(userProfileRef).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        updateProfileDisplay(data.profilePicture, data);
+                    } else {
+                        console.log("No user data available");
+                    }
+                }).catch((error) => {
+                    console.error("Error fetching user data: ", error);
+                });
+            }
+        }
+
+        // Event listener for form submission
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const user = auth.currentUser;
+            if (!user) {
+                alert("You must be logged in to update your profile.");
+                return;
+            }
+
+            // ... [rest of the form submission code] ...
+
+            // Check for profile picture
+            if (profilePic) {
+                const imageRef = storageRef(storage, 'profilePictures/' + user.uid);
+                uploadBytes(imageRef, profilePic).then((snapshot) => {
+                    return getDownloadURL(snapshot.ref);
+                }).then((url) => {
+                    // ... [rest of the profile picture upload code] ...
+                });
+            }
+        });
+
+        // Load existing profile data when the page loads
+        window.addEventListener('load', fetchAndDisplayProfile);
+
+        // Listen to authentication state changes
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                fetchAndDisplayProfile();
+            } else {
+                console.log("User is not logged in");
+            }
+        });
+
+        // ... [rest of the script] ...
+    </script>
+
+    <!-- ... [rest of the HTML] ... -->
+</body>
+</html>
+----------------------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ... [rest of the head] ... -->
+</head>
+<body>
+
+    <!-- ... [rest of the body] ... -->
+
+    <script type="module">
+        // ... [rest of the imports] ...
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+        const storage = getStorage(app);
+
+        function updateProfileDisplay(profilePicUrl, userData) {
+            const profileImageDisplay = document.getElementById('profileImageDisplay');
+            const navbarProfileImage = document.querySelector('.navbar-container .profile-img');
+
+            if (profilePicUrl) {
+                profileImageDisplay.src = profilePicUrl;
+                navbarProfileImage.src = profilePicUrl;
+            }
+
+            document.getElementById('usernameDisplay').textContent = userData.username || '';
+            document.getElementById('birthdayDisplay').textContent = userData.birthday || '';
+            document.getElementById('workplaceDisplay').textContent = userData.workplace || '';
+            document.getElementById('bioDisplay').textContent = userData.bio || '';
+            document.getElementById('infoDisplay').textContent = userData.info || '';
+        }
+
+        function fetchAndDisplayProfile() {
+            const user = auth.currentUser;
+            if (user) {
+                const userProfileRef = ref(database, 'users/' + user.uid);
+                get(userProfileRef).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        updateProfileDisplay(data.profilePicture, data);
+                    } else {
+                        console.log("No user data available");
+                    }
+                }).catch((error) => {
+                    console.error("Error fetching user data: ", error);
+                });
+            }
+        }
+
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const user = auth.currentUser;
+            // ... [rest of the form submission code] ...
+        });
+
+        // Load existing profile data when the page loads
+        window.addEventListener('load', () => {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    fetchAndDisplayProfile();
+                } else {
+                    console.log("User is not logged in");
+                }
+            });
+        });
+
+        // ... [rest of the script] ...
+    </script>
+
+    <!-- ... [rest of the HTML] ... -->
+</body>
+</html>
+----------------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<!-- ... [rest of the head section] ... -->
+<body>
+
+    <!-- ... [rest of the body content] ... -->
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+        // Firebase configuration and initialization
+        // ... [rest of the Firebase setup] ...
+
+        // Function to update profile display
+        function updateProfileDisplay(profilePicUrl, userData) {
+            const profileImageDisplay = document.getElementById('profileImageDisplay');
+            const navbarProfileImage = document.querySelector('.navbar-container .profile-img');
+
+            if (profilePicUrl) {
+                profileImageDisplay.src = profilePicUrl;
+                navbarProfileImage.src = profilePicUrl;
+            }
+
+            document.getElementById('usernameDisplay').textContent = userData.username || '';
+            document.getElementById('birthdayDisplay').textContent = userData.birthday || '';
+            document.getElementById('workplaceDisplay').textContent = userData.workplace || '';
+            document.getElementById('bioDisplay').textContent = userData.bio || '';
+            document.getElementById('infoDisplay').textContent = userData.info || '';
+        }
+
+        // Fetch and display profile data
+        function fetchAndDisplayProfile() {
+            const user = auth.currentUser;
+            if (user) {
+                const userProfileRef = ref(database, 'users/' + user.uid);
+                get(userProfileRef).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        updateProfileDisplay(data.profilePicture, data);
+                    } else {
+                        console.log("No user data available");
+                    }
+                }).catch((error) => {
+                    console.error("Error fetching user data: ", error);
+                });
+            }
+        }
+
+        // Event listener for form submission
+        // ... [rest of the event listener setup] ...
+
+        // Load existing profile data when the page loads
+        window.addEventListener('load', () => {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    fetchAndDisplayProfile();
+                } else {
+                    console.log("User is not logged in");
+                }
+            });
+        });
+
+        // ... [rest of the script] ...
+    </script>
+
+    <!-- ... [rest of the HTML] ... -->
+</body>
+</html>

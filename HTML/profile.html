@@ -44,6 +44,15 @@
 
     <div class="content">
         <form id="profileForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Your username">
+
+            <label for="birthday">Birthday:</label>
+            <input type="date" id="birthday">
+
+            <label for="workplace">Workplace:</label>
+            <input type="text" id="workplace" placeholder="Your workplace">
+
             <label for="bio">Bio:</label>
             <textarea id="bio" placeholder="Tell us about yourself"></textarea>
             
@@ -58,6 +67,9 @@
     
         <div class="profile-display">
             <img id="profileImageDisplay" src="../IMAGES/defaultpfpicon.png" alt="Profile Image" class="profile-img">
+            <p id="usernameDisplay"></p>
+            <p id="birthdayDisplay"></p>
+            <p id="workplaceDisplay"></p>
             <p id="bioDisplay"></p>
             <p id="infoDisplay"></p>
         </div>
@@ -94,20 +106,25 @@
                 alert("You must be logged in to update your profile.");
                 return;
             }
-    
+            const username = document.getElementById('username').value;
+            const birthday = document.getElementById('birthday').value;
+            const workplace = document.getElementById('workplace').value;
             const bio = document.getElementById('bio').value;
             const info = document.getElementById('info').value;
             const profilePic = document.getElementById('profilePic').files[0];
     
             set(ref(database, 'users/' + user.uid), {
+                username: username,
+                birthday: birthday,
+                workplace: workplace,
                 bio: bio,
                 info: info
             }).then(() => {
                 if (profilePic) {
-                    const imageRef = storageRef(storage, 'profilePictures/' + user.uid);
-                    uploadBytes(imageRef, profilePic).then((snapshot) => {
-                        return getDownloadURL(snapshot.ref);
-                    }).then((url) => {
+                const imageRef = storageRef(storage, 'profilePictures/' + user.uid);
+                uploadBytes(imageRef, profilePic).then((snapshot) => {
+                    return getDownloadURL(snapshot.ref);
+                }).then((url) => {
                         // Update profile picture URL in database
                         set(ref(database, 'users/' + user.uid + '/profilePicture'), url);
                         updateProfileDisplay(url, bio, info);
@@ -120,28 +137,65 @@
             });
         });
     
-        function updateProfileDisplay(profilePicUrl, bio, info) {
+        function updateProfileDisplay(profilePicUrl, userData) {
+            const profileImageDisplay = document.getElementById('profileImageDisplay');
+            const navbarProfileImage = document.querySelector('.navbar-container .profile-img');
+
             if (profilePicUrl) {
-                document.getElementById('profileImageDisplay').src = profilePicUrl;
-                // Update navbar profile image
-                document.querySelector('.navbar-container .profile-img').src = profilePicUrl;
+                profileImageDisplay.src = profilePicUrl;
+                navbarProfileImage.src = profilePicUrl;
             }
-            document.getElementById('bioDisplay').textContent = bio;
-            document.getElementById('infoDisplay').textContent = info;
+
+            document.getElementById('usernameDisplay').textContent = userData.username || '';
+            document.getElementById('birthdayDisplay').textContent = userData.birthday || '';
+            document.getElementById('workplaceDisplay').textContent = userData.workplace || '';
+            document.getElementById('bioDisplay').textContent = userData.bio || '';
+            document.getElementById('infoDisplay').textContent = userData.info || '';
         }
-    
-        // Load existing profile data when the page loads
-        window.addEventListener('load', () => {
+
+        function fetchAndDisplayProfile() {
             const user = auth.currentUser;
             if (user) {
                 const userProfileRef = ref(database, 'users/' + user.uid);
                 get(userProfileRef).then((snapshot) => {
                     if (snapshot.exists()) {
                         const data = snapshot.val();
-                        updateProfileDisplay(data.profilePicture, data.bio, data.info);
+                        updateProfileDisplay(data.profilePicture, data);
+                    } else {
+                        console.log("No user data available");
                     }
+                }).catch((error) => {
+                    console.error("Error fetching user data: ", error);
                 });
             }
+        }
+
+
+function updateProfileDisplay(profilePicUrl, username, birthday, workplace, bio, info) {
+    const profileImageDisplay = document.getElementById('profileImageDisplay');
+    const navbarProfileImage = document.querySelector('.navbar-container .profile-img');
+
+    if (profilePicUrl) {
+        if (profileImageDisplay) profileImageDisplay.src = profilePicUrl;
+        if (navbarProfileImage) navbarProfileImage.src = profilePicUrl;
+    }
+            document.getElementById('usernameDisplay').textContent = username;
+            document.getElementById('birthdayDisplay').textContent = birthday;
+            document.getElementById('workplaceDisplay').textContent = workplace;
+            document.getElementById('bioDisplay').textContent = bio;
+            document.getElementById('infoDisplay').textContent = info;
+}
+
+    
+        // Load existing profile data when the page loads
+        window.addEventListener('load', () => {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    fetchAndDisplayProfile();
+                } else {
+                    console.log("User is not logged in");
+                }
+            });
         });
     </script>
     
