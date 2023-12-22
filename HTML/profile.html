@@ -43,16 +43,30 @@
     </div>
 
     <div class="content">
-        <form id="profileForm">
+        <div class="user-details">
+            <div class="profile-display">
+                <img id="profileImageDisplay" alt="Profile Image" class="profile-img">
+                <p id="usernameDisplay" class="username"></p>
+                <p id="bioDisplay" class="bio"></p>
+            </div>
+            
+            <div class="user-info">
+                <p id="birthdayDisplay" class="birthday"></p>
+                <p id="workplaceDisplay" class="workplace"></p>
+                <p id="infoDisplay" class="additional-info"></p>
+            </div>
+        </div>
+        
+        <form id="profileForm" style="display:none;">
             <label for="username">Username:</label>
             <input type="text" id="username" placeholder="Your username">
-
+    
             <label for="birthday">Birthday:</label>
             <input type="date" id="birthday">
-
+    
             <label for="workplace">Workplace:</label>
             <input type="text" id="workplace" placeholder="Your workplace">
-
+    
             <label for="bio">Bio:</label>
             <textarea id="bio" placeholder="Tell us about yourself"></textarea>
             
@@ -61,19 +75,14 @@
     
             <label for="profilePic">Profile Picture:</label>
             <input type="file" id="profilePic" accept="image/*">
-    
+        
             <button type="submit">Save Profile</button>
         </form>
-    
-        <div class="profile-display">
-            <img id="profileImageDisplay" alt="Profile Image" class="profile-img">
-            <p id="usernameDisplay"></p>
-            <p id="birthdayDisplay"></p>
-            <p id="workplaceDisplay"></p>
-            <p id="bioDisplay"></p>
-            <p id="infoDisplay"></p>
-        </div>
+        
+        <!-- Toggle button to show/hide the edit form -->
+        <button id="toggleEditButton">Edit Profile</button>
     </div>
+    
     
 
 
