@@ -44,18 +44,19 @@
 
     <div class="content">
         <div class="user-details">
-            <div class="profile-display">
+            <div class="profile-picture">
                 <img id="profileImageDisplay" alt="Profile Image" class="profile-img">
-                <p id="usernameDisplay" class="username"></p>
-                <p id="bioDisplay" class="bio"></p>
             </div>
-            
             <div class="user-info">
-                <p id="birthdayDisplay" class="birthday"></p>
-                <p id="workplaceDisplay" class="workplace"></p>
-                <p id="infoDisplay" class="additional-info"></p>
+                <p id="usernameDisplay" class="username"></p>
+                <p id="bioDisplay" class="bio">Bio: [User Bio]</p>
+                <p id="birthdayDisplay" class="birthday">Birthday: [User Birthday]</p>
+                <p id="workplaceDisplay" class="workplace">Workplace: [User Workplace]</p>
+                <p id="infoDisplay" class="additional-info">Additional Info: [User Additional Info]</p>
             </div>
         </div>
+        
+        <button id="toggleEdit">Edit Profile</button>
         
         <form id="profileForm" style="display:none;">
             <label for="username">Username:</label>
@@ -80,7 +81,6 @@
         </form>
         
         <!-- Toggle button to show/hide the edit form -->
-        <button id="toggleEditButton">Edit Profile</button>
     </div>
     
     
@@ -93,14 +93,14 @@
         import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
     
         const firebaseConfig = {
-        apiKey: "AIzaSyAHcabQDigUfzFQ63dy_kjiaqAPZB4edtI",
-        authDomain: "codinganddevelopment-e7d2c.firebaseapp.com",
-        databaseURL: "https://codinganddevelopment-e7d2c-default-rtdb.firebaseio.com",
-        projectId: "codinganddevelopment-e7d2c",
-        storageBucket: "codinganddevelopment-e7d2c.appspot.com",
-        messagingSenderId: "991250122571",
-        appId: "1:991250122571:web:25d3ea280f9b9c34db8ace"
-    };
+            apiKey: "AIzaSyAHcabQDigUfzFQ63dy_kjiaqAPZB4edtI",
+            authDomain: "codinganddevelopment-e7d2c.firebaseapp.com",
+            databaseURL: "https://codinganddevelopment-e7d2c-default-rtdb.firebaseio.com",
+            projectId: "codinganddevelopment-e7d2c",
+            storageBucket: "codinganddevelopment-e7d2c.appspot.com",
+            messagingSenderId: "991250122571",
+            appId: "1:991250122571:web:25d3ea280f9b9c34db8ace"
+        };
     
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -115,100 +115,110 @@
         alert("You must be logged in to update your profile.");
         return;
     }
-    const username = document.getElementById('username').value;
-    const birthday = document.getElementById('birthday').value;
-    const workplace = document.getElementById('workplace').value;
-    const bio = document.getElementById('bio').value;
-    const info = document.getElementById('info').value;
-    const profilePic = document.getElementById('profilePic').files[0];
 
-    set(ref(database, 'users/' + user.uid), {
-        username: username,
-        birthday: birthday,
-        workplace: workplace,
-        bio: bio,
-        info: info
-    }).then(() => {
-        if (profilePic) {
-    const imageRef = storageRef(storage, 'profilePictures/' + user.uid);
-    uploadBytes(imageRef, profilePic).then((snapshot) => {
-        return getDownloadURL(snapshot.ref);
-    }).then((url) => {
-        set(ref(database, 'users/' + user.uid + '/profilePicture'), url).then(() => {
-            updateProfileDisplay(url, {username, birthday, workplace, bio, info});
-        });
-    });
-} else {
-    updateProfileDisplay(null, {username, birthday, workplace, bio, info});
-}
-    }).catch((error) => {
-        console.error("Error updating profile: ", error);
-    });
-});
+    // Get the current profile data
+    const userProfileRef = ref(database, 'users/' + user.uid);
+    get(userProfileRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            const currentData = snapshot.val();
+            
+            // Only update the fields that have changed
+            const updatedData = {
+                username: document.getElementById('username').value || currentData.username,
+                birthday: document.getElementById('birthday').value || currentData.birthday,
+                workplace: document.getElementById('workplace').value || currentData.workplace,
+                bio: document.getElementById('bio').value || currentData.bio,
+                info: document.getElementById('info').value || currentData.info,
+            };
 
-    
-function updateProfileDisplay(profilePicUrl, userData) {
-        const profileImageDisplay = document.getElementById('profileImageDisplay');
-        const navbarProfileImage = document.querySelector('.navbar-container .profile-img');
-
-        // Check if profilePicUrl is valid; otherwise, use a placeholder image
-        const finalImageUrl = profilePicUrl ? `${profilePicUrl}?t=${new Date().getTime()}` : '../IMAGES/defaultpfpicon.png';
-
-        if (profileImageDisplay && navbarProfileImage) {
-            profileImageDisplay.src = finalImageUrl;
-            navbarProfileImage.src = finalImageUrl;
-        }
-
-        // Update other user data
-        if (userData) {
-            document.getElementById('usernameDisplay').textContent = userData.username || '';
-            document.getElementById('birthdayDisplay').textContent = userData.birthday || '';
-            document.getElementById('workplaceDisplay').textContent = userData.workplace || '';
-            document.getElementById('bioDisplay').textContent = userData.bio || '';
-            document.getElementById('infoDisplay').textContent = userData.info || '';
-        }
-    }
-
-
-
-
-
-    function fetchAndDisplayProfile() {
-        const user = auth.currentUser;
-        if (user) {
-            const userProfileRef = ref(database, 'users/' + user.uid);
-            get(userProfileRef).then((snapshot) => {
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    updateProfileDisplay(data.profilePicture, data);
+            // Update profile data in Firebase
+            set(ref(database, 'users/' + user.uid), updatedData).then(() => {
+                // Handle profile picture upload if a new picture is chosen
+                const profilePic = document.getElementById('profilePic').files[0];
+                if (profilePic) {
+                    const imageRef = storageRef(storage, 'profilePictures/' + user.uid);
+                    uploadBytes(imageRef, profilePic).then((snapshot) => {
+                        return getDownloadURL(snapshot.ref);
+                    }).then((url) => {
+                        set(ref(database, 'users/' + user.uid + '/profilePicture'), url).then(() => {
+                            updateProfileDisplay(url, updatedData);
+                        });
+                    });
                 } else {
-                    console.log("No user data available");
+                    updateProfileDisplay(currentData.profilePicture || null, updatedData);
                 }
             }).catch((error) => {
-                console.error("Error fetching user data: ", error);
+                console.error("Error updating profile: ", error);
             });
+
+        } else {
+            console.log("No user data available");
         }
+    }).catch((error) => {
+        console.error("Error fetching user data: ", error);
+    });
+});
+    
+        function updateProfileDisplay(profilePicUrl, userData) {
+    const profileImageDisplay = document.getElementById('profileImageDisplay');
+    const finalImageUrl = profilePicUrl ? profilePicUrl : '../IMAGES/defaultpfpicon.png';
+
+    if (profileImageDisplay) {
+        profileImageDisplay.src = finalImageUrl;
     }
 
-    window.addEventListener('load', () => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                fetchAndDisplayProfile();
-            } else {
-                console.log("User is not logged in");
-            }
+    if (userData) {
+        document.getElementById('usernameDisplay').textContent = userData.username;
+        document.getElementById('birthdayDisplay').textContent = userData.birthday ? 'Birthday: ' + userData.birthday : '';
+        document.getElementById('workplaceDisplay').textContent = userData.workplace ? 'Workplace: ' + userData.workplace : '';
+        document.getElementById('bioDisplay').textContent = userData.bio ? 'Bio: ' + userData.bio : '';
+        document.getElementById('infoDisplay').textContent = userData.info ? 'Additional Info: ' + userData.info : '';
+    }
+}
+
+    
+        document.getElementById('toggleEdit').addEventListener('click', function() {
+            var form = document.getElementById('profileForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
         });
-    });
+    
+        function fetchAndDisplayProfile() {
+    const user = auth.currentUser;
+    if (user) {
+        const userProfileRef = ref(database, 'users/' + user.uid);
+        get(userProfileRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                updateProfileDisplay(data.profilePicture, data);
+            } else {
+                // Set default placeholder data
+                updateProfileDisplay(null, {
+                    username: 'Username',
+                    bio: 'Your bio goes here...',
+                    birthday: 'DD/MM/YYYY',
+                    workplace: 'Your workplace',
+                    info: 'Additional info...'
+                });
+                console.log("No user data available");
+            }
+        }).catch((error) => {
+            console.error("Error fetching user data: ", error);
+        });
+    }
+}
 
-
-    document.getElementById('toggleEdit').addEventListener('click', function() {
-    var form = document.getElementById('profileForm');
-    form.style.display = form.style.display === 'none' ? 'block' : 'none';
-});
-
-
-
+    
+        window.addEventListener('load', () => {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    fetchAndDisplayProfile();
+                } else {
+                    console.log("User is not logged in");
+                }
+            });
+        });
     </script>
+    
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
