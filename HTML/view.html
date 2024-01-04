@@ -51,7 +51,12 @@
         <select id="cityFilter">
             <option value="">Select City</option>
         </select>
-        <button onclick="applyFilters()">Filter</button>
+        <select id="sortFilter">
+            <option value="">Sort By</option>
+            <option value="name-asc">Name A-Z</option>
+            <option value="name-desc">Name Z-A</option>
+        </select>        
+        <button id="filterButton">Filter</button>
     </div>
     
 
@@ -131,6 +136,9 @@ function SelectAllData() {
     });
 }
 
+document.getElementById('filterButton').addEventListener('click', applyFilters);
+
+
 function populateDropdown(dropdownId, optionsSet) {
     const dropdown = document.getElementById(dropdownId);
     // Clear existing options
@@ -196,16 +204,25 @@ function populateDropdown(dropdownId, optionsSet) {
     const searchInput = document.getElementById('searchInput').value.toLowerCase();
     const stateFilter = document.getElementById('stateFilter').value;
     const cityFilter = document.getElementById('cityFilter').value;
+    const sortFilter = document.getElementById('sortFilter').value;
 
-    const filteredData = allData.filter(item => {
+    let filteredData = allData.filter(item => {
         const matchesState = item.ST_organization === stateFilter || stateFilter === '';
         const matchesCity = item.C_organization === cityFilter || cityFilter === '';
         const matchesSearch = item.Fname.toLowerCase().includes(searchInput) ||
                               item.Lname.toLowerCase().includes(searchInput) ||
                               item.email.toLowerCase().includes(searchInput) ||
-                              item.organization.toLowerCase().includes(searchInput);
+                              item.organization.toLowerCase().includes(searchInput) ||
+                              item.number.includes(searchInput);
         return matchesState && matchesCity && matchesSearch;
     });
+
+    // Sort the filtered data based on the selected sorting option
+    if (sortFilter === 'name-asc') {
+        filteredData.sort((a, b) => a.Fname.localeCompare(b.Fname));
+    } else if (sortFilter === 'name-desc') {
+        filteredData.sort((a, b) => b.Fname.localeCompare(a.Fname));
+    }
 
     displayFilteredData(filteredData);
 }
@@ -216,14 +233,22 @@ function displayFilteredData(data) {
 
     // Add filtered data to the display
     data.forEach(item => {
+        // Ensure the properties match those expected by AddItemsToTable
         AddItemsToTable(
             item.Fname,
             item.Lname,
             item.email,
-            // ...other fields...
+            item.number,
+            item.organization,
+            item.S_organization,
+            item.C_organization,
+            item.ST_organization,
+            item.resources,
+            item.additional
         );
     });
 }
+
 
 
 
