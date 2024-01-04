@@ -26,7 +26,7 @@
                 <img src="./IMAGES/homeicon.png" class="vert-nav-images" alt="Home">
                 Home
             </a>
-            <a href="./TESTING/form.html" title="Submit">
+            <a href="./HTML/form.html" title="Submit">
                 <img src="./IMAGES/submiticon.png" class="vert-nav-images" alt="Submit">
                 Submit
             </a>
@@ -34,7 +34,7 @@
                 <img src="./IMAGES/viewicon.png" class="vert-nav-images" alt="View">
                 View
             </a>
-            <a href="./TESTING/edit.html" title="Edit">
+            <a href="./HTML/edit.html" title="Edit">
                 <img src="./IMAGES/editicon.png" class="vert-nav-images" alt="">
                 Edit</a>
             <a href="./HTML/profile.html" title="Profile">
@@ -50,8 +50,35 @@
 
 
     <div class="content">
+        <div class="person-container">
+            <div class="person-box">
+                <h2>Alan Sanchez</h2>
+                <p>Alan Sanchez is a current coding student from West-Mec NEC. He is a developer in the Bizbond website.</p>
+            </div>
+    
+            <div class="person-box">
+                <h2>Daniel Freeman</h2>
+                <p>Daniel Freeman is a current coding student from West-Mec NEC. He is a developer in the Bizbond website.</p>
+            </div>
+    
+            <div class="person-box">
+                <h2>Oliver Kuopus</h2>
+                <p>Oliver Kuopus is a current coding student from West-Mec NEC. He is a developer in the Bizbond website.</p>
+            </div>
+        </div>
+        <div class="about_container">
+            <div class="about_bizbond">  
+                Bizbond is a user-friendly and secure website designed for both businesses and individuals. It excels in storing, adding, and organizing information efficiently. Whether it's records or client details, Bizbond provides a reliable and easy-to-use platform for managing crucial data securely. Trustworthy and streamlined, Bizbond is the ideal choice for those looking for a simple and secure solution for their information management needs.
+            </div>
+        </div>
 
-   
+        <div class="button-grid">
+            <a href="./HTMl/form.html" class="nav-button">Submit</a>
+            <a href="./HTML/view.html" class="nav-button">View</a>
+            <a href="./HTML/edit.html" class="nav-button">Edit</a>
+            <a href="./HTML/profile.html" class="nav-button">Profile</a>
+        </div>
+
     </div>
 
 
@@ -61,51 +88,5 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 
-    <script>
-        let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
-        let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
-
-        let GreetHead = document.getElementById('greet');
-        let SignoutBtn = document.getElementById('signoutbutton');
-
-
-        let Signout = () => {
-            sessionStorage.removeItem("user-creds");
-            sessionStorage.removeItem("user-info");
-            window.location.href = './HTML/login.html'
-        }
-
-        let CheckCred = () => {
-            if (!sessionStorage.getItem("user-creds")) {
-                window.location.href = './HTML/login.html';
-            } else {
-                GreetHead.innerText = `Welcome ${UserInfo.firstname} ${UserInfo.lastname}!`;
-            }
-        }
-
-        window.addEventListener('load', CheckCred);
-        SignoutBtn.addEventListener('click', Signout);
-    </script>
-    <div class="person-container">
-        <div class="person-box">
-            <h2>Alan Sanchez</h2>
-            <p>Alan Sanchez is a current coding student from West-Mec NEC. He is a developer in the Bizbond website.</p>
-        </div>
-
-        <div class="person-box">
-            <h2>Daniel Freeman</h2>
-            <p>Daniel Freeman is a current coding student from West-Mec NEC. He is a developer in the Bizbond website.</p>
-        </div>
-
-        <div class="person-box">
-            <h2>Oliver Kuopus</h2>
-            <p>Oliver Kuopus is a current coding student from West-Mec NEC. He is a developer in the Bizbond website.</p>
-        </div>
-    </div>
-    <div class="about_container">
-        <div class="about_bizbond">  
-            Bizbond is a user-friendly and secure website designed for both businesses and individuals. It excels in storing, adding, and organizing information efficiently. Whether it's records or client details, Bizbond provides a reliable and easy-to-use platform for managing crucial data securely. Trustworthy and streamlined, Bizbond is the ideal choice for those looking for a simple and secure solution for their information management needs.
-        </div>
-    </div>
 </body>
 </html>
