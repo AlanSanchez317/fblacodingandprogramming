@@ -12,12 +12,6 @@ body {
     color: #0366d6;
 }
 
-.content {
-    display: flex;
-    margin-top: 20px;
-}
-
-
 
 /* Main content styles */
 .form-container {
@@ -55,4 +49,31 @@ button {
 
 button:hover {
     background-color: #218838;
+}
+
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-display {
+    text-align: center;
+}
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+#profileForm {
+    display: none; 
+}
+
+.user-info {
+    text-align: left;
 }
