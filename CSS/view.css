@@ -7,13 +7,13 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: auto; /* Add scroll if content overflows */
+    overflow: auto; 
 }
 
 .data-item {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
-    gap: 10px; /* Adjust the gap between columns */
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
     padding: 10px; 
     margin-bottom: 15px;
     border: 1px solid #ddd;
@@ -21,7 +21,31 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.filter-search-container {
+    text-align: center;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
+.filter-search-container input, .filter-search-container select, .filter-search-container button {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.filter-search-container button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.filter-search-container button:hover {
+    background-color: #0056b3;
+}
 
 
 .data-label,
@@ -31,10 +55,10 @@
 
 .data-label {
     font-weight: bold;
-    margin-bottom: 5px; /* Add margin between label and value */
+    margin-bottom: 5px; 
 }
 
-/* Remove border-bottom for the last data item */
+
 .data-item:last-child {
     border-bottom: none;
 }
