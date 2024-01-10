@@ -1,83 +1,161 @@
 .custom-content {
-    margin-left: 100px;
-    margin-right: 10px;
+    margin-left: 80px; /* Space from the left side (vertical navbar) */
+    margin-right: 30px; /* Increase space from the right side for a wider look */
+    padding-top: 60px; /* Space from the top (horizontal navbar) */
+    padding-bottom: 20px; /* Bottom padding for aesthetic spacing */
 }
 
 .data-container {
-    border: 1px solid #ddd;
+    border: 1px solid #444;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: auto; 
-    background-color: #181818;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    background-color: #181818; /* Dark background */
+    padding: 15px;
+    max-width: 90%; /* Increased width for a wider appearance */
+    margin: 20px auto; /* Centered with automatic margin */
 }
 
 .data-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-    gap: 10px; 
-    padding: 10px; 
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #202020; /* Slightly lighter dark background for each item */
+    border: 1px solid #333;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .filter-search-container {
-    text-align: center;
-    margin: 20px 0;
-    padding: 20px;
+    display: flex;
+    justify-content: center; /* Centering the filter bar */
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    background-color: #222; /* Dark gray background */
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: auto; /* Auto width to adjust based on content */
+    margin-left: 80px; /* Align left edge with the data container */
+    margin-right: 30px; /* Align right edge with the data container */
 }
 
-.filter-search-container input, .filter-search-container select, .filter-search-container button {
-    margin: 10px;
-    padding: 10px;
+.filter-search-container input,
+.filter-search-container select,
+.filter-search-container button {
+    padding: 8px;
     border-radius: 5px;
-    border: 1px solid #ddd;
+    border: 1px solid #333;
+    background-color: #181818;
+    color: #ddd;
+    margin-bottom: 10px;
 }
 
 .filter-search-container button {
     background-color: #007bff;
-    color: white;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .filter-search-container button:hover {
     background-color: #0056b3;
 }
 
-
-.data-label,
-.data-value {
-    flex: 1;
-}
-
 .data-label {
     font-weight: bold;
-    margin-bottom: 5px; 
+    margin-bottom: 5px;
+    color: #ccc;
 }
 
-
-.data-item:last-child {
-    border-bottom: none;
+.data-value {
+    color: #ddd;
 }
 
-.data-item table {
+/* Responsive Design */
+@media (max-width: 768px) {
+    .custom-content {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .filter-search-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .data-item {
+        padding: 8px;
+    }
+}
+
+/* Table Style Adjustments */
+.data-container table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.data-item th, .data-item td {
-    padding: 8px;
-    border: 1px solid #ddd;
+.data-container th, 
+.data-container td {
+    padding: 10px;
+    border: 1px solid #333;
+    text-align: left;
+    color: #ddd;
 }
 
-.data-item th {
-    background-color: #f2f2f2;
+.data-container th {
+    background-color: #333;
 }
 
-.data-item td {
-    background-color: #fff;
+.data-container td {
+    background-color: #202020;
+}
+
+/* Enhancing text appearance */
+.data-label, 
+.data-value, 
+.filter-search-container input, 
+.filter-search-container select, 
+.filter-search-container button, 
+.data-container th, 
+.data-container td {
+    font-family: 'Arial', sans-serif; /* Clean, professional font */
+    color: #EAEAEA; /* Lighter color for better readability on dark background */
+    font-size: 16px; /* Slightly larger font size for readability */
+    line-height: 1.5; /* Improved line spacing for better legibility */
+}
+
+.data-label {
+    font-weight: bold; /* Emphasize labels */
+    margin-bottom: 5px;
+}
+
+.filter-search-container button {
+    font-weight: bold; /* Make buttons stand out */
+    padding: 10px 15px; /* Larger padding for a better click area */
+    font-size: 15px; /* Ensuring buttons have clear, readable text */
+}
+
+.filter-search-container input,
+.filter-search-container select {
+    border: 1px solid #555; /* Slightly lighter border for a subtle contrast */
+}
+
+/* Styling for table headers and cells */
+.data-container th {
+    background-color: #333; /* Dark background for headers */
+    font-weight: bold; /* Bold headers for clear section demarcation */
+}
+
+.data-container td {
+    background-color: #202020; /* Maintaining the dark theme for cells */
+}
+
+/* Adjustments for mobile view */
+@media (max-width: 768px) {
+    .data-label, 
+    .data-value {
+        font-size: 15px; /* Slightly smaller font for mobile devices */
+    }
 }

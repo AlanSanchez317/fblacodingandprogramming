@@ -106,7 +106,6 @@ function AddItemsToTable(
     createLabelValue('Resources:', resources);
     createLabelValue('Additional Info:', additional);
 
-    // Repeat for each label and value
 
     // Append the data container to the data-container div
     document.getElementById('data-container').appendChild(dataContainer);
