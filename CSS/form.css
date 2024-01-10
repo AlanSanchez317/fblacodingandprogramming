@@ -4,12 +4,13 @@
   
   
   form {
-    max-width: 400px;
+    /* Adjust max-width for an optimal balance */
+    max-width: 600px; /* This is a balanced width for most screens */
     margin: 35px auto;
     border-radius: 10px;
     padding: 10px 15px;
     background: rgb(65, 64, 64);
-  }
+}
   
   h1 {
     margin: 0 0 30px 0;
@@ -61,6 +62,8 @@
   fieldset {
     margin-bottom: 30px;
     border: none;
+    width: auto;
+
   }
   
   legend {
@@ -101,18 +104,24 @@
     text-align: center;
     border-radius: 40px;
   }
-  
-  @media screen and (min-width: 480px) {
+
+  @media screen and (min-width: 480px) and (max-width: 768px) {
     form {
-      max-width: 480px;
+        max-width: 70%; /* Adjust for medium-sized screens */
     }
-  }
+}
+
+@media screen and (min-width: 769px) {
+    form {
+        max-width: 60%; /* Adjust for larger screens */
+    }
+}
   
-  .form-content {
-    max-width: 90%; /* Significantly increased width */
-    margin: auto;
-    padding: 20px;
-    background-color: #222; /* Dark background for the form */
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+.form-content {
+  width: 100%; /* Use full available width */
+  margin: auto;
+  padding: 20px;
+  background-color: #222;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
