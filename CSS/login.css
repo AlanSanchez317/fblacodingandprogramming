@@ -4,8 +4,44 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #f4f4f4;
+    background: linear-gradient(to bottom, #424242, #6e5494); /* Gray to purple gradient */
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative; /* For positioning the hexagonal pattern */
+    overflow: hidden; /* To prevent scrolling if the pattern is bigger than the view */
 }
+
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../IMAGES/topography.svg'); /* Replace with the path to your SVG file */
+    background-size: cover; /* Adjust as necessary */
+    background-repeat: no-repeat;
+    opacity: 0.4; /* Adjust the opacity to make it lighter */
+    z-index: -1; /* Ensures it stays behind the content */
+}
+
+
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative; /* To position the pseudo-element absolutely relative to the body */
+}
+
+/* Make sure your container has a higher z-index */
+.custom-form-container {
+    position: relative;
+    z-index: 2; /* Higher than the pseudo-element */
+    /* ... other styles ... */
+}
+
+
 
 .container {
     display: flex;
@@ -13,15 +49,38 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 100%; /* Full width */
-    max-width: 800px; /* Increased maximum width for wider container */
+    z-index: 2; /* Higher z-index to keep it in front of the pattern */
+
 }
 
 .custom-form-container {
-    background: #fff;
-    padding: 40px; /* Adjusted padding for shorter length */
+    background: rgba(110, 84, 148, 1); /* Slightly transparent white */
+    padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+    z-index: 2; /* Ensuring this is also above the pattern */
+
+}
+
+.alert-message {
+    color: #fff;
+    background-color: #ff9999;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    position: absolute; /* Absolute positioning */
+    top: -40px; /* Adjust this value as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%; /* Adjust the width as necessary */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: none; /* Hidden by default */
+    z-index: 10; /* Ensure it's above other elements */
 }
 
 .custom-form {
@@ -34,16 +93,16 @@ body {
 }
 
 .custom-form-group {
-    margin-bottom: 20px; /* Adjusted margin */
+    margin-bottom: 20px;
 }
 
 .custom-input {
     width: 100%;
-    padding: 15px; /* Adjusted padding */
+    padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
-    margin-bottom: 15px; /* Space between inputs and button */
+    margin-bottom: 15px;
 }
 
 .custom-label {
@@ -55,14 +114,14 @@ body {
 .custom-button,
 .custom-sign-up-button {
     width: 100%;
-    padding: 12px; /* Adjusted padding */
+    padding: 12px;
     border: none;
     border-radius: 5px;
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-bottom: 15px; /* Space between buttons */
+    margin-bottom: 15px;
 }
 
 .custom-button:hover,
@@ -77,24 +136,43 @@ body {
     cursor: pointer;
 }
 
-.alert-message {
-    color: #fff;
-    background-color: #ff9999;
-    padding: 10px;
-    margin-bottom: 20px;
-    text-align: center;
-    border-radius: 5px;
-    font-weight: bold;
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    display: none;
-}
-
 .custom-image {
     max-width: 150px;
     margin-bottom: 20px;
+}
+
+.auth-buttons-container {
+    display: flex;
+    justify-content: space-around; /* Changed for even spacing */
+    width: 100%; /* Full width for better alignment */
+    margin: 15px 0; /* Added top and bottom margin */
+}
+
+.auth-button {
+    flex: 1; /* Each button takes equal space */
+    margin: 0 10px; /* Adjusted margins for spacing */
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+}
+
+.google-button {
+    background-color: #db4437;
+    color: white;
+}
+
+.google-button:hover {
+    background-color: #c1351d;
+}
+
+.github-button {
+    background-color: #333;
+    color: white;
+}
+
+.github-button:hover {
+    background-color: #24292e;
 }

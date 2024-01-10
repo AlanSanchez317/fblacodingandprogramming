@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, get, ref, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getDatabase, ref, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAHcabQDigUfzFQ63dy_kjiaqAPZB4edtI",
@@ -16,63 +16,80 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase();
 const auth = getAuth(app);
 const dbref = ref(db);
+const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 document.addEventListener('DOMContentLoaded', () => {
     let EmailInp = document.getElementById('emailInp');
     let PassInp = document.getElementById('passwordInp');
     let MainForm = document.getElementById('MainForm');
     let ForgotPasswordLabel = document.getElementById('forgotpasslabel');
+    let alertMessage = document.getElementById('alertMessage');
+    let LoginButton = document.getElementById('loginButton');
+    let googleSignInButton = document.getElementById('googleSignInButton');
+    let githubSignInButton = document.getElementById('githubSignInButton');
+
+    const storeUserDataAndRedirect = (user) => {
+        sessionStorage.setItem("user-info", JSON.stringify({
+            firstname: user.displayName || user.email,
+            lastname: ''
+        }));
+        sessionStorage.setItem("user-creds", JSON.stringify(user));
+        window.location.href = "../index.html";
+    };
 
     let SignInUser = evt => {
         evt.preventDefault();
-
         signInWithEmailAndPassword(auth, EmailInp.value, PassInp.value)
-        .then((credentials) => {
-            get(child(dbref, 'UsersAuthList/' + credentials.user.uid)).then((snapshot) => {
-                if (snapshot.exists) {
-                    sessionStorage.setItem("user-info", JSON.stringify({
-                        firstname: snapshot.val().firstname,
-                        lastname: snapshot.val().lastname 
-                    }));
-                    sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
-                    window.location.href = "../index.html";
-                }
+            .then((credentials) => {
+                storeUserDataAndRedirect(credentials.user);
             })
-        })
-        .catch((error) => {
-            alert(error.message);
-            console.log(error.code);
-            console.log(error.message);
-        });
+            .catch((error) => {
+                alert(error.message);
+            });
+    };
+
+    let SignInWithGoogle = (event) => {
+        event.preventDefault();
+        signInWithPopup(auth, googleProvider)
+            .then((result) => {
+                storeUserDataAndRedirect(result.user);
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    };
+
+    let SignInWithGitHub = (event) => {
+        event.preventDefault();
+        signInWithPopup(auth, githubProvider)
+            .then((result) => {
+                storeUserDataAndRedirect(result.user);
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
     };
 
     let ForgotPassword = () => {
         const email = EmailInp.value.trim();
-        const alertMessage = document.getElementById('alertMessage');
         if (email === '') {
             alertMessage.style.display = 'block';
+            setTimeout(() => { alertMessage.style.display = 'none'; }, 3000);
         } else {
-            alertMessage.style.display = 'none';
             sendPasswordResetEmail(auth, email)
                 .then(() => {
                     alert("A Password Reset Link has been sent to your email");
                 })
                 .catch((error) => {
-                    console.log(error.code);
-                    console.log(error.message);
+                    alert(error.message);
                 });
         }
     };
-    
-    
-    let LoginButton = document.getElementById('loginButton');
+
     LoginButton.addEventListener('click', SignInUser);
-
     MainForm.addEventListener('submit', SignInUser);
-
-    if (ForgotPasswordLabel) {
-        ForgotPasswordLabel.addEventListener('click', ForgotPassword);
-    } else {
-        console.error('Forgot Password label not found');
-    }
+    ForgotPasswordLabel.addEventListener('click', ForgotPassword);
+    googleSignInButton.addEventListener('click', SignInWithGoogle);
+    githubSignInButton.addEventListener('click', SignInWithGitHub);
 });

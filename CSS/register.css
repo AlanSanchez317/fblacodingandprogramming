@@ -4,20 +4,57 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #f4f4f4;
+    background: linear-gradient(to bottom, #424242, #6e5494); /* Gray to purple gradient */
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative; /* For positioning the hexagonal pattern */
+    overflow: hidden; /* To prevent scrolling if the pattern is bigger than the view */
 }
 
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../IMAGES/topography.svg'); /* Replace with the path to your SVG file */
+    background-size: cover; /* Adjust as necessary */
+    background-repeat: no-repeat;
+    opacity: 0.4; /* Adjust the opacity to make it lighter */
+    z-index: -1; /* Ensures it stays behind the content */
+}
+
+
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative; /* To position the pseudo-element absolutely relative to the body */
+}
+
+
 .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    z-index: 2; /* Higher z-index to keep it in front of the pattern */
+
 }
 
 .custom-form-container {
-    background: #fff;
+    background: rgba(110, 84, 148, 1); /* Slightly transparent white */
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
     width: 100%;
+    max-width: 800px;
+    position: relative;
+    z-index: 2; /* Ensuring this is also above the pattern */
+
 }
 
 .custom-form {
@@ -39,24 +76,26 @@ body {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
+    margin-bottom: 15px;
 }
 
 .custom-label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     color: #666;
 }
 
 .custom-button,
 .custom-sign-up-button {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: none;
     border-radius: 5px;
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-bottom: 15px;
 }
 
 .custom-button:hover,
