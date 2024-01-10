@@ -131,3 +131,68 @@ body, html {
     max-width: 150px;
     margin-bottom: 20px;
 }
+
+@media screen and (max-width: 768px) {
+    .custom-form-container {
+        padding: 30px;
+        max-width: 600px;
+    }
+
+    .custom-input, 
+    .custom-button, 
+    .custom-sign-up-button {
+        padding: 10px;
+    }
+
+    .custom-heading {
+        margin-bottom: 20px;
+    }
+
+    .custom-form-group {
+        margin-bottom: 15px;
+    }
+
+    .auth-buttons-container {
+        flex-direction: column;
+    }
+
+    .auth-button {
+        margin: 10px 0; /* Adjusted margin for stacked layout */
+    }
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 480px) {
+    .custom-form-container {
+        padding: 20px;
+        max-width: 100%;
+        border-radius: 10px;
+    }
+
+    .custom-input, 
+    .custom-button, 
+    .custom-sign-up-button {
+        padding: 8px;
+    }
+
+    .custom-heading {
+        font-size: 18px;
+    }
+
+    .alert-message {
+        top: -35px;
+    }
+
+    .custom-image {
+        max-width: 120px;
+    }
+
+    .auth-buttons-container {
+        flex-direction: column;
+    }
+
+    .auth-button {
+        margin: 8px 0;
+        font-size: 12px;
+    }
+}
