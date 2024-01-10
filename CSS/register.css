@@ -4,74 +4,91 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
+    background-color: #f4f4f4;
 }
 
 .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     text-align: center;
 }
 
 .custom-form-container {
-    display: flex;
-    align-items: center;
+    background: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
 }
 
 .custom-form {
-    width: 100% !important;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0;
 }
 
 .custom-heading {
-    margin-bottom: 20px;
-    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
 }
 
 .custom-form-group {
-    position: relative;
+    margin-bottom: 20px;
 }
 
 .custom-input {
-    width: calc(100% - 60px);
-    box-sizing: border-box;
+    width: 100%;
     padding: 15px;
-    margin: 0 30px 15px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    vertical-align: middle;
+    box-sizing: border-box;
 }
 
 .custom-label {
-    text-align: left;
-    padding-bottom: 2px;
-    pointer-events: none;
-    color: #555;
-    transition: 0.3s;
-}
-
-.custom-forgot-password {
-    cursor: pointer;
-    margin-top: 12px;
-    margin-left: 2px;
-    text-align: left;
-    color: #007bff;
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
 }
 
 .custom-button,
 .custom-sign-up-button {
-    margin: 30px 30px 0;
-    padding: 15px 20px;
+    width: 100%;
+    padding: 10px;
     border: none;
     border-radius: 5px;
     background-color: #007bff;
     color: #fff;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.custom-button:hover,
+.custom-sign-up-button:hover {
+    background-color: #0056b3;
+}
+
+.custom-forgot-password {
+    display: block;
+    margin-top: 20px;
+    color: #007bff;
+    cursor: pointer;
+}
+
+.alert-message {
+    color: #fff;
+    background-color: #ff9999;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-weight: bold;
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: none;
 }
 
 .custom-image {
-    margin-right: 20px;
+    max-width: 150px;
+    margin-bottom: 20px;
 }
