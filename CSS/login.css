@@ -34,14 +34,6 @@ body, html {
     position: relative; /* To position the pseudo-element absolutely relative to the body */
 }
 
-/* Make sure your container has a higher z-index */
-.custom-form-container {
-    position: relative;
-    z-index: 2; /* Higher than the pseudo-element */
-    /* ... other styles ... */
-}
-
-
 
 .container {
     display: flex;
