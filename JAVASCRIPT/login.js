@@ -1,6 +1,13 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { 
+    getAuth, 
+    signInWithEmailAndPassword, 
+    signInWithPopup, 
+    GoogleAuthProvider, 
+    GithubAuthProvider, 
+    sendPasswordResetEmail 
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAHcabQDigUfzFQ63dy_kjiaqAPZB4edtI",
@@ -30,14 +37,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let githubSignInButton = document.getElementById('githubSignInButton');
 
     const storeUserDataAndRedirect = (user) => {
-        const username = user.displayName || user.email.split('@')[0]; // Use displayName or part of the email
-        sessionStorage.setItem("username", username); // Store username
-        sessionStorage.setItem("user-info", JSON.stringify({
-            firstname: user.displayName || user.email,
-            lastname: ''
-        }));
-        sessionStorage.setItem("user-creds", JSON.stringify(user));
-        window.location.href = "../index.html";
+        // Fetch username from database
+        get(ref(db, 'users/' + user.uid)).then((snapshot) => {
+            if (snapshot.exists()) {
+                const userData = snapshot.val();
+                const username = userData.username || user.displayName || user.email.split('@')[0];
+                sessionStorage.setItem("username", username);
+            } else {
+                const username = user.displayName || user.email.split('@')[0];
+                sessionStorage.setItem("username", username);
+            }
+            sessionStorage.setItem("user-info", JSON.stringify({ firstname: user.displayName || user.email, lastname: '' }));
+            sessionStorage.setItem("user-creds", JSON.stringify(user));
+            window.location.href = "../index.html";
+        });
     };
 
     let SignInUser = evt => {

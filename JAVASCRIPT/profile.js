@@ -39,7 +39,7 @@ document.getElementById('profileForm').addEventListener('submit', function(e) {
         };
 
         set(ref(database, 'users/' + user.uid), updatedData).then(() => {
-            sessionStorage.setItem("username", updatedData.username); // Update username in sessionStorage
+            sessionStorage.setItem("username", updatedData.username);
             handleProfilePictureUpload(user, updatedData, currentData.profilePicture || null);
         }).catch((error) => {
             console.error("Error updating profile: ", error);
@@ -81,7 +81,8 @@ function updateProfileDisplay(profilePicUrl, userData) {
         document.getElementById('workplaceDisplay').textContent = userData.workplace ? 'Workplace: ' + userData.workplace : '';
         document.getElementById('bioDisplay').textContent = userData.bio ? 'Bio: ' + userData.bio : '';
         document.getElementById('infoDisplay').textContent = userData.info ? 'Additional Info: ' + userData.info : '';
-        updateGreeting(userData.username); // Update greeting with new username
+        updateGreeting(userData.username);
+        updateNavbarProfilePic(finalImageUrl); // Update navbar profile picture
     }
 }
 
@@ -89,6 +90,13 @@ function updateGreeting(username) {
     let greetHead = document.getElementById('greet');
     if (greetHead) {
         greetHead.innerText = `Welcome ${username}!`;
+    }
+}
+
+function updateNavbarProfilePic(url) {
+    const navbarProfilePic = document.getElementById('navbarProfilePic'); // ID of your navbar profile image element
+    if (navbarProfilePic) {
+        navbarProfilePic.src = url;
     }
 }
 

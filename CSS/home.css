@@ -34,6 +34,14 @@ body {
     width: 150px;
 }
 
+#navbarProfilePic {
+    width: 40px; 
+    height: 40px;
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 2px solid white; 
+}
+
 
 .vertical-navbar a {
     padding: 30px 15px 30px 13px;
@@ -117,7 +125,7 @@ a:hover {
 }
 
 .person-box h2 {
-    color: #ffd700;
+    color: #650a77;
     margin-bottom: 15px;
 }
 
@@ -190,5 +198,5 @@ a:hover {
     background-color: #444;
     transform: scale(1.08);
     color: #fff;
-    border-color: #ffd700;
+    border-color: #c724b9;
 }
