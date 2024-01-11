@@ -21,12 +21,13 @@ body {
     flex-direction: column;
     width: 65px;
     height: 100vh;
-    background: linear-gradient(to bottom, #424242, #6e5494); /* Faint purple to gray gradient */
+    background: linear-gradient(to top, #6e5494, #424242); 
     transition: width 0.3s ease-in-out;
     position: fixed;
     top: 0;
     z-index: 200;
-    /* ... other styles ... */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.6); /* Subtle shadow for depth */
+    border-right: 2px solid #6e5494; /* Light border to differentiate */
 }
 
 .vertical-navbar:hover {
@@ -55,17 +56,17 @@ body {
     justify-content: flex-end;
     align-items: center;
     padding: 10px;
-    background: #424242; /* Faint purple to gray gradient */
+    background: #333333; /* Slightly darker for distinction */
     width: 100%;
     position: sticky;
     top: 0;
     z-index: 100;
-    /* ... other styles ... */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6); /* Subtle shadow for depth */
 }
 
 .horizontal-navbar #signoutbutton {
     margin-left: 10px;
-    color: #a8a8ff; /* Adjusted color for sign out text */
+    color: #b8a8ff; /* Light purple for sign out text */
 }
 
 

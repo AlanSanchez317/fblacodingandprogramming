@@ -30,6 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let githubSignInButton = document.getElementById('githubSignInButton');
 
     const storeUserDataAndRedirect = (user) => {
+        const username = user.displayName || user.email.split('@')[0]; // Use displayName or part of the email
+        sessionStorage.setItem("username", username); // Store username
         sessionStorage.setItem("user-info", JSON.stringify({
             firstname: user.displayName || user.email,
             lastname: ''

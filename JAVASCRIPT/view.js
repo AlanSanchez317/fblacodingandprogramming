@@ -204,22 +204,22 @@ let UserCreds = JSON.parse(sessionStorage.getItem("user-creds"));
 let UserInfo = JSON.parse(sessionStorage.getItem("user-info"));
 
 let GreetHead = document.getElementById('greet');
-let SignoutBtn = document.getElementById('signoutbutton');
-
 
 let Signout = () => {
     sessionStorage.removeItem("user-creds");
     sessionStorage.removeItem("user-info");
-    window.location.href = 'login.html'
+    window.location.href = 'login.html';
 }
 
 let CheckCred = () => {
     if (!sessionStorage.getItem("user-creds")) {
         window.location.href = 'login.html';
     } else {
-        GreetHead.innerText = `Welcome ${UserInfo.firstname} ${UserInfo.lastname}!`;
+        // Use username from sessionStorage if available
+        const username = sessionStorage.getItem("username") || "User";
+        GreetHead.innerText = `Welcome ${username}!`;
     }
 }
 
 window.addEventListener('load', CheckCred);
-SignoutBtn.addEventListener('click', Signout);
+document.getElementById('signoutbutton').addEventListener('click', Signout);

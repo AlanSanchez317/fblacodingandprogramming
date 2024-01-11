@@ -1,8 +1,8 @@
 .custom-content {
-    margin-left: 80px; /* Space from the left side (vertical navbar) */
-    margin-right: 30px; /* Increase space from the right side for a wider look */
-    padding-top: 60px; /* Space from the top (horizontal navbar) */
-    padding-bottom: 20px; /* Bottom padding for aesthetic spacing */
+    margin-left: 80px;
+    margin-right: 30px;
+    padding-top: 60px;
+    padding-bottom: 20px;
 }
 
 .data-container {
@@ -10,10 +10,10 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     overflow: auto;
-    background-color: #181818; /* Dark background */
+    background-color: #181818;
     padding: 15px;
-    max-width: 90%; /* Increased width for a wider appearance */
-    margin: 20px auto; /* Centered with automatic margin */
+    max-width: 90%;
+    margin: 20px auto;
 }
 
 .data-item {
@@ -21,7 +21,7 @@
     flex-direction: column;
     padding: 10px;
     margin-bottom: 10px;
-    background-color: #202020; /* Slightly lighter dark background for each item */
+    background-color: #202020;
     border: 1px solid #333;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -29,16 +29,16 @@
 
 .filter-search-container {
     display: flex;
-    justify-content: center; /* Centering the filter bar */
+    justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
     padding: 10px;
-    background-color: #222; /* Dark gray background */
+    background-color: #222;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    width: auto; /* Auto width to adjust based on content */
-    margin-left: 80px; /* Align left edge with the data container */
-    margin-right: 30px; /* Align right edge with the data container */
+    width: auto;
+    margin-left: 80px;
+    margin-right: 30px;
 }
 
 .filter-search-container input,
@@ -73,21 +73,31 @@
     color: #ddd;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .custom-content {
         margin-left: 10px;
         margin-right: 10px;
+        padding-top: 20px; /* Reduced top padding on mobile */
+    }
+
+    .data-container {
+        max-width: 100%; /* Full width for mobile devices */
+        margin: 10px 0; /* Reduced margin for compact look */
+    }
+    
+    .data-item {
+        padding: 8px; /* Slightly reduced padding */
     }
 
     .filter-search-container {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row; /* Row layout for better utilization of space */
+        flex-wrap: nowrap; /* Prevent wrapping */
+        overflow: auto; /* Allow horizontal scrolling */
+        margin-left: 10px;
+        margin-right: 10px;
+        gap: 5px; /* Reduced gap for a compact look */
     }
 
-    .data-item {
-        padding: 8px;
-    }
 }
 
 /* Table Style Adjustments */
