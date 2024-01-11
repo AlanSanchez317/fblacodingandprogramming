@@ -3,8 +3,9 @@ body {
     flex-direction: column;
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #111;
+    background: linear-gradient(to bottom, #424242, #6e5494); /* Gray to purple gradient */
     color: #ddd;
+    min-height: 100vh; /* Ensure the gradient covers the full height */
 }
 
 .navbar-container {
@@ -20,21 +21,23 @@ body {
     flex-direction: column;
     width: 65px;
     height: 100vh;
-    background-color: #444;
+    background: linear-gradient(to bottom, #424242, #6e5494); /* Faint purple to gray gradient */
     transition: width 0.3s ease-in-out;
     position: fixed;
     top: 0;
     z-index: 200;
+    /* ... other styles ... */
 }
 
 .vertical-navbar:hover {
     width: 150px;
 }
 
+
 .vertical-navbar a {
     padding: 30px 15px 30px 13px;
     text-decoration: none;
-    color: #ddd;
+    color: #ddd; /* Light text color */
     overflow: hidden;
     white-space: nowrap;
     transition: padding-left 0.3s, color 0.3s;
@@ -44,7 +47,7 @@ body {
 .vertical-navbar:hover a {
     padding-left: 5px;
     text-align: center;
-    color: #fff;
+    color: #fff; /* White text on hover */
 }
 
 .horizontal-navbar {
@@ -52,17 +55,19 @@ body {
     justify-content: flex-end;
     align-items: center;
     padding: 10px;
-    background-color: #555;
+    background: #424242; /* Faint purple to gray gradient */
     width: 100%;
     position: sticky;
     top: 0;
     z-index: 100;
+    /* ... other styles ... */
 }
 
 .horizontal-navbar #signoutbutton {
     margin-left: 10px;
-    color: #ffd700;
+    color: #a8a8ff; /* Adjusted color for sign out text */
 }
+
 
 .content {
     padding: 15px;

@@ -91,71 +91,46 @@
 }
 
 /* Table Style Adjustments */
-.data-container table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
+.data-container, 
+.filter-search-container, 
 .data-container th, 
 .data-container td {
-    padding: 10px;
-    border: 1px solid #333;
-    text-align: left;
-    color: #ddd;
+    font-family: 'Segoe UI', Arial, sans-serif; /* Professional and modern font */
+    color: #EAEAEA; /* Light gray color for pleasant readability on dark backgrounds */
 }
 
 .data-container th {
     background-color: #333;
+    font-size: 16px; /* Slightly larger for headers */
+    font-weight: bold; /* Bold for headers */
 }
 
 .data-container td {
     background-color: #202020;
+    font-size: 14px; /* Optimized size for body text */
 }
 
-/* Enhancing text appearance */
-.data-label, 
-.data-value, 
 .filter-search-container input, 
 .filter-search-container select, 
-.filter-search-container button, 
-.data-container th, 
-.data-container td {
-    font-family: 'Arial', sans-serif; /* Clean, professional font */
-    color: #EAEAEA; /* Lighter color for better readability on dark background */
-    font-size: 16px; /* Slightly larger font size for readability */
-    line-height: 1.5; /* Improved line spacing for better legibility */
-}
-
-.data-label {
-    font-weight: bold; /* Emphasize labels */
-    margin-bottom: 5px;
+.filter-search-container button {
+    font-size: 14px; /* Consistent font size for inputs and buttons */
+    font-weight: normal; /* Regular weight for a clean look */
+    color: #EAEAEA; /* Light gray color for better visibility */
 }
 
 .filter-search-container button {
-    font-weight: bold; /* Make buttons stand out */
-    padding: 10px 15px; /* Larger padding for a better click area */
-    font-size: 15px; /* Ensuring buttons have clear, readable text */
+    font-weight: bold; /* Bold for buttons to stand out */
 }
 
-.filter-search-container input,
-.filter-search-container select {
-    border: 1px solid #555; /* Slightly lighter border for a subtle contrast */
-}
-
-/* Styling for table headers and cells */
-.data-container th {
-    background-color: #333; /* Dark background for headers */
-    font-weight: bold; /* Bold headers for clear section demarcation */
-}
-
-.data-container td {
-    background-color: #202020; /* Maintaining the dark theme for cells */
-}
-
-/* Adjustments for mobile view */
+/* Responsive Design Adjustments */
 @media (max-width: 768px) {
     .data-label, 
     .data-value {
-        font-size: 15px; /* Slightly smaller font for mobile devices */
+        font-size: 13px; /* Slightly smaller for mobile screens */
+    }
+    .filter-search-container input, 
+    .filter-search-container select, 
+    .filter-search-container button {
+        font-size: 13px; /* Slightly smaller for mobile screens */
     }
 }

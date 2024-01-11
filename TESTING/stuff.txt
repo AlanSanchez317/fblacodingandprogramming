@@ -756,3 +756,199 @@ function formSubmit(e) {
 }
 
 /* Styles for th, td in data-container table remain the same */
+----------------------------------------------------------------
+.custom-content {
+    margin-left: 80px; /* Space from the left side (vertical navbar) */
+    margin-right: 30px; /* Increase space from the right side for a wider look */
+    padding-top: 60px; /* Space from the top (horizontal navbar) */
+    padding-bottom: 20px; /* Bottom padding for aesthetic spacing */
+}
+
+.data-container {
+    /* ... other styles ... */
+}
+
+.data-item {
+    /* ... other styles ... */
+}
+
+.filter-search-container {
+    /* ... other styles ... */
+}
+
+/* Text Appearance Enhancements */
+.data-container, 
+.filter-search-container, 
+.data-container th, 
+.data-container td {
+    font-family: 'Segoe UI', Arial, sans-serif; /* Professional and modern font */
+    color: #EAEAEA; /* Light gray color for pleasant readability on dark backgrounds */
+}
+
+.data-container th {
+    background-color: #333;
+    font-size: 16px; /* Slightly larger for headers */
+    font-weight: bold; /* Bold for headers */
+}
+
+.data-container td {
+    background-color: #202020;
+    font-size: 14px; /* Optimized size for body text */
+}
+
+.filter-search-container input, 
+.filter-search-container select, 
+.filter-search-container button {
+    font-size: 14px; /* Consistent font size for inputs and buttons */
+    font-weight: normal; /* Regular weight for a clean look */
+    color: #EAEAEA; /* Light gray color for better visibility */
+}
+
+.filter-search-container button {
+    font-weight: bold; /* Bold for buttons to stand out */
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
+    .data-label, 
+    .data-value {
+        font-size: 13px; /* Slightly smaller for mobile screens */
+    }
+    .filter-search-container input, 
+    .filter-search-container select, 
+    .filter-search-container button {
+        font-size: 13px; /* Slightly smaller for mobile screens */
+    }
+}
+
+/* ... remaining styles ... */
+----------------------------------------------------------------
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const firebaseConfig = {
+    // ... Your Firebase Config ...
+};
+
+const app = initializeApp(firebaseConfig);
+
+let allData = [];
+let uniqueStates = new Set();
+let uniqueCities = new Set();
+
+function SelectAllData() {
+    const db = getDatabase(app);
+    const dbRef = ref(db, 'Information');
+
+    get(dbRef).then((snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const CurrentRecord = childSnapshot.val();
+            allData.push(CurrentRecord);
+            uniqueStates.add(CurrentRecord.ST_organization);
+            uniqueCities.add(CurrentRecord.C_organization);
+
+            const {
+                Fname,
+                Lname,
+                email,
+                number,
+                organization,
+                S_organization,
+                C_organization,
+                ST_organization,
+                resources,
+                additional
+            } = CurrentRecord;
+
+            AddItemsToTable(
+                Fname,
+                Lname,
+                email,
+                number,
+                organization,
+                S_organization,
+                C_organization,
+                ST_organization,
+                resources,
+                additional
+            );
+        });
+
+        populateDropdown('stateFilter', uniqueStates);
+        populateDropdown('cityFilter', uniqueCities);
+    });
+}
+
+document.getElementById('filterButton').addEventListener('click', applyFilters);
+
+function populateDropdown(dropdownId, optionsSet) {
+    const dropdown = document.getElementById(dropdownId);
+    dropdown.innerHTML = '<option value="">Select ' + (dropdownId === 'stateFilter' ? 'State' : 'City') + '</option>';
+    optionsSet.forEach((option) => {
+        let opt = document.createElement('option');
+        opt.value = option;
+        opt.innerText = option;
+        dropdown.appendChild(opt);
+    });
+}
+
+window.onload = SelectAllData;
+
+function AddItemsToTable(Fname, Lname, email, number, organization, S_organization, C_organization, ST_organization, resources, additional) {
+    var dataContainer = document.createElement('div');
+    dataContainer.classList.add('data-item');
+    styleDataContainer(dataContainer);
+
+    createLabelValue('First Name:', Fname, dataContainer);
+    createLabelValue('Last Name:', Lname, dataContainer);
+    createLabelValue('Email:', email, dataContainer);
+    // ... other createLabelValue calls ...
+
+    document.getElementById('data-container').appendChild(dataContainer);
+}
+
+function createLabelValue(label, value, container) {
+    var labelDiv = document.createElement('div');
+    var valueDiv = document.createElement('div');
+
+    styleLabel(labelDiv, label);
+    styleValue(valueDiv, value);
+
+    container.appendChild(labelDiv);
+    container.appendChild(valueDiv);
+}
+
+function styleDataContainer(container) {
+    container.style.padding = '20px';
+    container.style.marginBottom = '15px';
+    container.style.backgroundColor = '#323232';
+    container.style.border = '1px solid #555';
+    container.style.borderRadius = '8px';
+    container.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.4)';
+    container.style.display = 'flex';
+    container.style.flexWrap = 'wrap';
+    container.style.justifyContent = 'space-between';
+    container.style.alignItems = 'center';
+    container.style.gap = '10px';
+    container.style.color = '#EAEAEA';
+}
+
+function styleLabel(labelDiv, labelText) {
+    labelDiv.innerText = labelText;
+    labelDiv.style.fontWeight = '600';
+    labelDiv.style.fontSize = '15px';
+    labelDiv.style.flexBasis = '30%';
+    labelDiv.style.textTransform = 'uppercase';
+    labelDiv.style.marginBottom = '5px';
+    labelDiv.style.color = '#FFD700';
+}
+
+function styleValue(valueDiv, valueText) {
+    valueDiv.innerText = valueText;
+    valueDiv.style.fontSize = '14px';
+    valueDiv.style.flexBasis = '70%';
+    valueDiv.style.textAlign = 'right';
+}
+
+// ... applyFilters, displayFilteredData, and user authentication functions ...
+
