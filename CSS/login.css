@@ -4,11 +4,11 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background: linear-gradient(to bottom, #424242, #6e5494); /* Gray to purple gradient */
+    background: linear-gradient(to bottom, #424242, #6e5494); 
     background-repeat: no-repeat;
     background-size: cover;
-    position: relative; /* For positioning the hexagonal pattern */
-    overflow: hidden; /* To prevent scrolling if the pattern is bigger than the view */
+    position: relative; 
+    overflow: hidden; 
 }
 
 body::after {
@@ -18,11 +18,11 @@ body::after {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../IMAGES/topography.svg'); /* Replace with the path to your SVG file */
-    background-size: cover; /* Adjust as necessary */
+    background-image: url('../IMAGES/topography.svg'); 
+    background-size: cover; 
     background-repeat: no-repeat;
-    opacity: 0.4; /* Adjust the opacity to make it lighter */
-    z-index: -1; /* Ensures it stays behind the content */
+    opacity: 0.4; 
+    z-index: -1; 
 }
 
 
@@ -31,7 +31,7 @@ body, html {
     height: 100%;
     margin: 0;
     padding: 0;
-    position: relative; /* To position the pseudo-element absolutely relative to the body */
+    position: relative; 
 }
 
 
@@ -41,19 +41,19 @@ body, html {
     align-items: center;
     justify-content: center;
     text-align: center;
-    z-index: 2; /* Higher z-index to keep it in front of the pattern */
+    z-index: 2; 
 
 }
 
 .custom-form-container {
-    background: rgba(110, 84, 148, 1); /* Slightly transparent white */
+    background: rgba(110, 84, 148, 1); 
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
     width: 100%;
     max-width: 800px;
     position: relative;
-    z-index: 2; /* Ensuring this is also above the pattern */
+    z-index: 2; 
 
 }
 
@@ -65,14 +65,14 @@ body, html {
     text-align: center;
     border-radius: 5px;
     font-weight: bold;
-    position: absolute; /* Absolute positioning */
-    top: -40px; /* Adjust this value as needed */
+    position: absolute; 
+    top: -40px; 
     left: 50%;
     transform: translateX(-50%);
-    width: 90%; /* Adjust the width as necessary */
+    width: 90%; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    display: none; /* Hidden by default */
-    z-index: 10; /* Ensure it's above other elements */
+    display: none; 
+    z-index: 10; 
 }
 
 .custom-form {
@@ -135,14 +135,14 @@ body, html {
 
 .auth-buttons-container {
     display: flex;
-    justify-content: space-around; /* Changed for even spacing */
-    width: 100%; /* Full width for better alignment */
-    margin: 15px 0; /* Added top and bottom margin */
+    justify-content: space-around; 
+    width: 100%; 
+    margin: 15px 0; 
 }
 
 .auth-button {
-    flex: 1; /* Each button takes equal space */
-    margin: 0 10px; /* Adjusted margins for spacing */
+    flex: 1; 
+    margin: 0 10px; 
     padding: 12px;
     border: none;
     border-radius: 5px;
@@ -194,11 +194,10 @@ body, html {
     }
 
     .auth-button {
-        margin: 10px 0; /* Adjusted margin for stacked layout */
+        margin: 10px 0; 
     }
 }
 
-/* Media query for mobile devices */
 @media screen and (max-width: 480px) {
     .custom-form-container {
         padding: 20px;

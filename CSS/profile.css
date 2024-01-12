@@ -109,7 +109,7 @@ input[type="text"], input[type="date"], textarea {
     }
 
     .username {
-        font-size: 2em; /* Slightly smaller font size for mobile */
+        font-size: 2em; 
     }
 
     #profileForm {
@@ -120,10 +120,10 @@ input[type="text"], input[type="date"], textarea {
     #profileForm label,
     #profileForm input,
     #profileForm textarea {
-        width: calc(100% - 30px); /* Adjust width for smaller screens */
+        width: calc(100% - 30px); 
     }
 
     #profileForm button[type="submit"] {
-        padding: 8px 16px; /* Adjust button size for mobile */
+        padding: 8px 16px; 
     }
 }

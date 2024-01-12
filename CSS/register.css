@@ -4,11 +4,11 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background: linear-gradient(to bottom, #424242, #6e5494); /* Gray to purple gradient */
+    background: linear-gradient(to bottom, #424242, #6e5494); 
     background-repeat: no-repeat;
     background-size: cover;
-    position: relative; /* For positioning the hexagonal pattern */
-    overflow: hidden; /* To prevent scrolling if the pattern is bigger than the view */
+    position: relative; 
+    overflow: hidden; 
 }
 
 body::after {
@@ -31,7 +31,7 @@ body, html {
     height: 100%;
     margin: 0;
     padding: 0;
-    position: relative; /* To position the pseudo-element absolutely relative to the body */
+    position: relative; 
 }
 
 
@@ -41,19 +41,19 @@ body, html {
     align-items: center;
     justify-content: center;
     text-align: center;
-    z-index: 2; /* Higher z-index to keep it in front of the pattern */
+    z-index: 2; 
 
 }
 
 .custom-form-container {
-    background: rgba(110, 84, 148, 1); /* Slightly transparent white */
+    background: rgba(110, 84, 148, 1); 
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
     width: 100%;
     max-width: 800px;
     position: relative;
-    z-index: 2; /* Ensuring this is also above the pattern */
+    z-index: 2; 
 
 }
 
@@ -157,11 +157,10 @@ body, html {
     }
 
     .auth-button {
-        margin: 10px 0; /* Adjusted margin for stacked layout */
+        margin: 10px 0; 
     }
 }
 
-/* Media query for mobile devices */
 @media screen and (max-width: 480px) {
     .custom-form-container {
         padding: 20px;

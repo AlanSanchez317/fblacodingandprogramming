@@ -77,70 +77,69 @@
     .custom-content {
         margin-left: 10px;
         margin-right: 10px;
-        padding-top: 20px; /* Reduced top padding on mobile */
+        padding-top: 20px; 
     }
 
     .data-container {
-        max-width: 100%; /* Full width for mobile devices */
-        margin: 10px 0; /* Reduced margin for compact look */
+        max-width: 100%; 
+        margin: 10px 0; 
     }
     
     .data-item {
-        padding: 8px; /* Slightly reduced padding */
+        padding: 8px; 
     }
 
     .filter-search-container {
-        flex-direction: row; /* Row layout for better utilization of space */
-        flex-wrap: nowrap; /* Prevent wrapping */
-        overflow: auto; /* Allow horizontal scrolling */
+        flex-direction: row; 
+        flex-wrap: nowrap; 
+        overflow: auto; 
         margin-left: 10px;
         margin-right: 10px;
-        gap: 5px; /* Reduced gap for a compact look */
+        gap: 5px; 
     }
 
 }
 
-/* Table Style Adjustments */
 .data-container, 
 .filter-search-container, 
 .data-container th, 
 .data-container td {
-    font-family: 'Segoe UI', Arial, sans-serif; /* Professional and modern font */
-    color: #EAEAEA; /* Light gray color for pleasant readability on dark backgrounds */
+    font-family: 'Segoe UI', Arial, sans-serif; 
+    color: #EAEAEA; 
 }
 
 .data-container th {
     background-color: #333;
-    font-size: 16px; /* Slightly larger for headers */
-    font-weight: bold; /* Bold for headers */
+    font-size: 16px; 
+    font-weight: bold; 
 }
 
 .data-container td {
     background-color: #202020;
-    font-size: 14px; /* Optimized size for body text */
+    font-size: 14px; 
 }
 
 .filter-search-container input, 
 .filter-search-container select, 
 .filter-search-container button {
-    font-size: 14px; /* Consistent font size for inputs and buttons */
-    font-weight: normal; /* Regular weight for a clean look */
-    color: #EAEAEA; /* Light gray color for better visibility */
+    font-size: 14px; 
+    font-weight: normal; 
+    color: #EAEAEA; 
 }
 
 .filter-search-container button {
-    font-weight: bold; /* Bold for buttons to stand out */
+    font-weight: bold; 
 }
 
 /* Responsive Design Adjustments */
 @media (max-width: 768px) {
     .data-label, 
     .data-value {
-        font-size: 13px; /* Slightly smaller for mobile screens */
+        font-size: 13px; 
     }
     .filter-search-container input, 
     .filter-search-container select, 
     .filter-search-container button {
-        font-size: 13px; /* Slightly smaller for mobile screens */
+        font-size: 13px; 
     }
 }

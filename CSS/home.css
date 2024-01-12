@@ -3,9 +3,9 @@ body {
     flex-direction: column;
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(to bottom, #424242, #6e5494); /* Gray to purple gradient */
+    background: linear-gradient(to bottom, #424242, #6e5494);
     color: #ddd;
-    min-height: 100vh; /* Ensure the gradient covers the full height */
+    min-height: 100vh;
 }
 
 .navbar-container {
@@ -21,13 +21,13 @@ body {
     flex-direction: column;
     width: 65px;
     height: 100vh;
-    background: linear-gradient(to top, #6e5494, #424242); 
+    background: linear-gradient(to top, #6e5494, #424242);
     transition: width 0.3s ease-in-out;
     position: fixed;
     top: 0;
     z-index: 200;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.6); /* Subtle shadow for depth */
-    border-right: 2px solid #6e5494; /* Light border to differentiate */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.6);
+    border-right: 2px solid #6e5494;
 }
 
 .vertical-navbar:hover {
@@ -35,18 +35,17 @@ body {
 }
 
 #navbarProfilePic {
-    width: 40px; 
+    width: 40px;
     height: 40px;
-    border-radius: 50%; 
+    border-radius: 50%;
     object-fit: cover;
-    border: 2px solid white; 
+    border: 2px solid white;
 }
-
 
 .vertical-navbar a {
     padding: 30px 15px 30px 13px;
     text-decoration: none;
-    color: #ddd; /* Light text color */
+    color: #ddd;
     overflow: hidden;
     white-space: nowrap;
     transition: padding-left 0.3s, color 0.3s;
@@ -56,7 +55,7 @@ body {
 .vertical-navbar:hover a {
     padding-left: 5px;
     text-align: center;
-    color: #fff; /* White text on hover */
+    color: #fff;
 }
 
 .horizontal-navbar {
@@ -64,19 +63,18 @@ body {
     justify-content: flex-end;
     align-items: center;
     padding: 10px;
-    background: #333333; /* Slightly darker for distinction */
+    background: #333333;
     width: 100%;
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6); /* Subtle shadow for depth */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
 }
 
 .horizontal-navbar #signoutbutton {
     margin-left: 10px;
-    color: #b8a8ff; /* Light purple for sign out text */
+    color: #b8a8ff;
 }
-
 
 .content {
     padding: 15px;
@@ -162,11 +160,11 @@ a:hover {
     }
 
     .button-grid {
-        width: 70%; 
+        width: 70%;
     }
 
     .nav-button {
-        font-size: 1em; 
+        font-size: 1em;
     }
 }
 
@@ -199,4 +197,130 @@ a:hover {
     transform: scale(1.08);
     color: #fff;
     border-color: #c724b9;
+}
+
+.featured-services, 
+.testimonials, 
+.faq-section, 
+.latest-updates, 
+.contact-info {
+    background-color: #333;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border: 2px solid #6e5494;
+    color: #ddd;
+}
+
+.section h2 {
+    color: #c724b9;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 2px solid #c724b9;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.featured-services .service {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #555;
+    border-radius: 8px;
+    background-color: #444;
+    transition: background-color 0.3s;
+}
+
+.featured-services .service:hover {
+    background-color: #505050;
+}
+
+.featured-services .service img {
+    width: 60px;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.featured-services .service h3 {
+    margin-bottom: 5px;
+    color: #c724b9;
+}
+
+.featured-services .service p {
+    margin: 0;
+    line-height: 1.5;
+    color: #ddd;
+}
+
+@media (max-width: 768px) {
+    .featured-services .service {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .featured-services .service img {
+        margin-bottom: 10px;
+    }
+}
+
+.testimonials .testimonial {
+    border-left: 4px solid #c724b9;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    background-color: #444;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.testimonials span {
+    display: block;
+    text-align: right;
+    color: #aaa;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.faq-section .faq {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.latest-updates .update {
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info li {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #555;
+    padding-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+    .featured-services .service, 
+    .testimonials .testimonial, 
+    .faq-section .faq, 
+    .latest-updates .update {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.mainbgcontainer{
+    background-color: #333;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    border: 2px solid #6e5494;
+    text-align: center;
 }
